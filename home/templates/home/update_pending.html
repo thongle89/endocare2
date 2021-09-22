@@ -1,0 +1,46 @@
+{% extends 'home/base.html' %}
+{% load static%}
+{% block content %}
+<!-- ======= Breadcrumbs ======= -->
+<!-- <section id="breadcrumbs" class="breadcrumbs">
+  <div class="container">
+
+    <ol>
+      <li><a href="/themes/trial/#devices">Thiết bị</a></li>
+      <li>Inner Page</li>
+    </ol>
+    <h2>Inner Page</h2>
+
+  </div>
+</section> --><!-- End Breadcrumbs -->
+<section class="inner-page">
+	<div class="container">
+		<h5>Thông tin thiết bị</h5>
+		<li>Khách hàng: <strong>{{ pending.rma_id.customer }}</strong></li>
+      <li>Vị trí hiện tại: Trung tâm sửa chữa {{ pending.rma_id.location }}</li>
+      
+      <li>Model: {{ pending.rma_id.model_d }}</li>
+      <li>Serial: <strong>{{ pending.rma_id.sn }}</strong></li>
+      <li >Ngày lắp đặt: {{ pending.rma_id.install_date|date:'d/m/Y' }}</li>
+      <li>Tình trạng thiết bị: Hư <strong>{{ pending.rma_id.repair_size}}</strong></li>
+      <li>Bộ phận liên quan: <strong>{{ pending.rma_id.issue_part}} </strong></li>
+
+      <br>
+      <h5>Tiến độ: </h5>
+      <li>Ngày nhận thiết bị: {{ pending.rma_id.receive_date|date:'d/m/Y' }}</li>
+			<li>Status: {{ pending.rma_id.repair_status }}</li>
+			<li>e_score: {{ pending.rma_id.e_score }}</li>
+			<br>
+		<form action ="" method=POST>
+			{% csrf_token %}
+			{{ form.as_p }}
+			<br>
+			<input type="submit" value ="Update"
+			class = "btn btn-success">
+		</form>
+	</div>
+</section>
+
+	
+
+{% endblock %}

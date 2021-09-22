@@ -1,0 +1,32 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+{% if form.errors %}
+
+	<section id="navbar">
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		            There was an error with your form... 
+		            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+	</section>
+{% endif %}
+<div class="container">
+	<div class="shadow p-3 mb-2 bg-light text-dark rounded">
+		<br><br><br>
+		<h1>Đăng ký tài khoản mới</h1>
+		<br>
+		<form action="{% url 'register-user' %}" method=POST>
+			{% csrf_token %}
+
+			{{ form.as_p }}
+		  
+		  <input type ="submit" value="Submit" class ="btn btn-success">
+		  
+		</form>
+	</div>	
+		
+</div>
+	
+
+
+{% endblock %}

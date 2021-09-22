@@ -1,0 +1,39 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<div class="container">
+	<br><br><br><br>
+	<h1>Đăng Nhập</h1>
+	<br>
+	
+		
+	
+		
+	<form action="" method=POST>
+		{%csrf_token%}
+	  <div class="mb-3">
+	    <label for="exampleInputEmail1" class="form-label">Username</label>
+	    <input type="text" class="form-control" name="username" aria-describedby="emailHelp">
+	    
+	  </div>
+	  <div class="mb-3">
+	    <label for="exampleInputPassword1" class="form-label">Password</label>
+	    <input type="password" class="form-control" name="password">
+	  </div>
+	  <input type ="submit" value="Đăng Nhập" class ="btn btn-success">
+	  
+	</form>
+		<br>
+	<!-- <form action="{% url 'register-user'%}">
+		<button type="submit" class="btn btn-primary" >Đăng Ký Thành Viên</button>
+	</form> -->
+	Quên mật khẩu? <a href="{% url 'reset_password' %}">Khôi phục</a><br>
+	Chưa có tài khoản? <a href="{% url 'register-user' %}">Đăng Ký</a>
+	
+
+
+
+	
+
+</div>
+{% endblock %}

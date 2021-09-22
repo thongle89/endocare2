@@ -1,0 +1,166 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+
+      
+    
+
+<!-- ======= Breadcrumbs ======= -->
+    <!-- <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <ol>
+          <li><a href="/themes/trial/#devices">Thiết bị</a></li>
+          <li>Inner Page</li>
+        </ol>
+        <h2>Inner Page</h2>
+
+      </div>
+    </section> --><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+      <div class="container">
+        <div class="card">
+          <div class="card-header">
+           <strong>RMA No#: {{ pending }} - {{ pending.rma_id.repair_status}}</strong>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">{{ pending.rma_id.customer }}</h3>
+            <p class="card-text"><ul>
+              <br>
+              <center>
+                
+                <h6>ExFM: {{ pending.rma_id.repair_status}} {{ pending.rma_id.e_score}}</h6>
+                <h6>Pending: {{ pending.p_status}} {{ pending.p_score}}</h6>
+                {% if pending.p_score > pending.rma_id.e_score %}
+                Pending
+                {%if pending.p_score == 0 %}
+                <img src = "/static/fujifilm/icon/1_nhan_hang.svg" alt="My Happy SVG"/>
+                {% endif %}
+
+                {%if pending.p_score == 1 %}
+                <img src = "/static/fujifilm/icon/2_dang_kiem_tra.svg" alt="My Happy SVG"/>
+                {% endif %}
+
+                {%if pending.p_score == 2 %}
+                <img src = "/static/fujifilm/icon/3_bao_gia.svg" alt="My Happy SVG"/>
+                {% endif %}
+                {%if pending.p_score == 2.5 %}
+                <img src = "/static/fujifilm/icon/3_cho_duyet_BH.svg" alt="My Happy SVG"/>
+                {% endif %}
+                {%if pending.p_score == 2.8 %}
+                <img src = "/static/fujifilm/icon/4_XN_linh_kien.svg" alt="My Happy SVG"/>
+                {% endif %}
+                {%if pending.p_score == 4 %}
+                <img src = "/static/fujifilm/icon/5_XN_cho_sua.svg" alt="My Happy SVG"/>
+                {% endif %}
+                {%if pending.p_score == 5 %}
+                <img src = "/static/fujifilm/icon/5_XN_dang_sua.svg" alt="My Happy SVG"/>
+                {% endif %}
+
+                {%if pending.p_score == 7 %}
+                <img src = "/static/fujifilm/icon/6_XN_shipping.svg" alt="My Happy SVG"/>
+                {% endif %}
+                
+                {%if pending.p_score == 10 %}
+                <img src = "/static/fujifilm/icon/3_cho_xac_nhan.svg" alt="My Happy SVG"/>
+                {% endif %}
+
+                
+                
+                {% else %}
+                ExFm
+                {%if pending.rma_id.e_score == 0 %} <!-- Create -->
+                <img src = "/static/fujifilm/icon/1_nhan_hang.svg" alt="My Happy SVG"/>
+                {% endif %}
+
+                {%if pending.rma_id.e_score == 1 %}   <!-- Receive -->
+                <img src = "/static/fujifilm/icon/2_dang_kiem_tra.svg" alt="My Happy SVG"/>
+                {% endif %}
+
+                {%if pending.rma_id.e_score == 2 %} <!-- Inspection -->
+                <img src = "/static/fujifilm/icon/3_bao_gia.svg" alt="My Happy SVG"/>
+                {% endif %}
+                {%if pending.rma_id.e_score == 3 %} <!-- Part Selection -->
+                <img src = "/static/fujifilm/icon/4_XN_linh_kien.svg" alt="My Happy SVG"/>
+                {% endif %}
+                {%if pending.rma_id.e_score == 4 %} <!-- Authorized -->
+                <img src = "/static/fujifilm/icon/5_XN_dang_sua.svg" alt="My Happy SVG"/>
+                {% endif %}
+                {%if pending.rma_id.e_score == 6 %} <!-- Repair -->
+                <img src = "/static/fujifilm/icon/5_XN_dang_sua.svg" alt="My Happy SVG"/>
+                {% endif %}
+                {%if pending.rma_id.e_score == 7 %} <!-- QC -->
+                <img src = "/static/fujifilm/icon/6_XN_shipping.svg" alt="My Happy SVG"/>
+                {% endif %}
+
+                {%if pending.rma_id.e_score == 8 %} <!-- Shipped -->
+                <img src = "/static/fujifilm/icon/7_XN_completed.svg" alt="My Happy SVG"/>
+                {% endif %}
+                
+
+                {%if pending.rma_id.e_score == 9 %} <!-- Completed -->
+                <img src = "/static/fujifilm/icon/5_XN_cho_sua.svg" alt="My Happy SVG"/>
+                {% endif %}
+
+                
+                {% endif %}
+                
+
+              </center>
+              <h5>Thông tin thiết bị</h5>
+              <li>Vị trí hiện tại: Trung tâm sửa chữa {{ pending.rma_id.location }}</li>
+              
+              <li>Model: {{ pending.rma_id.model_d }}</li>
+              <li>Serial: {{ pending.rma_id.sn }}</li>
+              <li >Ngày lắp đặt: {{ pending.rma_id.install_date|date:'d/m/Y' }}</li>
+              <li>Tình trạng thiết bị: Hư <strong>{{ pending.rma_id.repair_size}}</strong></li>
+              <li>Bộ phận liên quan: <strong>{{ pending.rma_id.issue_part}} </strong></li>
+
+              <br>
+              <h5>Tiến độ: </h5>
+              <li>Ngày nhận thiết bị: {{ pending.rma_id.receive_date|date:'d/m/Y' }}</li>
+              <li>Ngày giám định kỹ thuật: {{ pending.rma_id.inspection_date|date:'d/m/Y' }}</li>
+              <li>Ngày gửi báo giá: <strong>{{ pending.quotation_date|date:'d/m/Y' }}</strong></li>
+              <li>Ngày xác nhận sửa chữa: {{ pending.p|date:'d/m/Y' }}</li>
+              <li>Ngày xuất linh kiện: {{ pending.part_list_date|date:'d/m/Y' }}</li>
+              <li>Hoàn tất sửa chữa: {{ pending.p|date:'d/m/Y' }}</li>
+              <li>Kỹ sư thực hiện: {{ pending.rma_id.pic }}<strong>/Bỏ hay Để????</strong></li>
+
+              </ul></p>
+              {% if user.is_authenticated %}
+                <a href="/#devices" class="btn btn-success">Quay lại</a>
+              {% else %}
+                <a href="{% url 'home' %}" class="btn btn-success">Quay lại</a>
+              {% endif %}
+              {% if user.is_staff %}
+                <a href="{% url 'update-pending' pending.rma_id %}" class="btn btn-primary">Update</a>
+              {% endif %}
+            </div>
+          </div>
+
+      </div>
+      <div id="comments" class="container">
+        <br>
+        <div class="card">
+          <h3>Bình luận</h3>
+          <div class="card text-dark bg-light mb-3" >
+            
+            <div class="card-body">
+              <h5 class="card-title">Lê Quang Thông - 22/09/2021 20:12</h5>
+              <p class="card-text">Không biết viết gì cả</p>
+            </div>
+          </div>
+          <div class="mb-3">
+            <form>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Viết bình luận"></textarea>
+              <br>
+              <input type="submit" value ="Bình Luận" class = "btn btn-primary">
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock %}
