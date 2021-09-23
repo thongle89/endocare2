@@ -53,13 +53,13 @@ def home(request):
 	try:
 		user_login = User.objects.get(username=request.user)
 		if user_login.is_ffvn:
-			pendings = Pending.objects.all().order_by('customer')
+			pendings = Pending.objects.all().order_by('rma_id__customer')
 			
 		elif user_login.dealer != None:
-			pendings = Pending.objects.filter(dealer=user_login.dealer).order_by('customer')
+			pendings = Pending.objects.filter(dealer=user_login.dealer).order_by('rma_id__customer')
 
 		elif user_login.customer != None:
-			pendings = Pending.objects.filter(customer=user_login.customer).order_by('-receive_date',)
+			pendings = Pending.objects.filter(rma_id__customer=user_login.customer).order_by('-rma_id')
 
 		counts = pendings.count()
 
