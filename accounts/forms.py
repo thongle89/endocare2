@@ -20,6 +20,8 @@ class RegisterUserForm(UserCreationForm):
 	full_name = forms.CharField(max_length=50,widget=forms.TextInput(attrs={'class':'form-control'}),label='Họ Và Tên(*)')
 	phone = forms.CharField(max_length=50,widget=forms.TextInput(attrs={'class':'form-control'}),label='Số Điện Thoại(*)')
 	organization = forms.CharField(max_length=50,widget=forms.TextInput(attrs={'class':'form-control'}),label='Tên Đơn vị/Tổ chức/Bệnh viện/Phòng Khám(*)',help_text='Cung cấp tên đơn vị để chúng tôi chăm sóc bạn tốt hơn.')
+	#fix lỗi user valid
+	User._meta.get_field('username').validators[1].limit_value = 50
 
 	help_texts = {
 		'organization':'Cung cấp tên đơn vị của bạn để chúng tôi chăm sóc tốt hơn.',
@@ -27,6 +29,7 @@ class RegisterUserForm(UserCreationForm):
 	}
 	class Meta:
 		model = User
+
 		fields = ('username','full_name','email','phone','organization','password1','password2')
 		help_texts = {
 		'username':'Chỉ chấp nhận ký tự thường từ a->z,số 0->9. Viết liền không dấu.',
