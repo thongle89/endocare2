@@ -90,7 +90,7 @@ def home(request):
 			if sn==pending.rma_id.sn.upper():
 				return redirect(f'quick_search/{rma}/{sn}')
 			else:
-				messages.error(request,('Thông tin chưa chính xác 1.<br> Vui lòng liên hệ <a href="https://zalo.me/84902343992">Trần Minh Sang</a> để cập nhật thông tin thiết bị.'))
+				messages.error(request,('Thông tin chưa chính xác 1.<br> Vui lòng liên hệ <a href="https://zalo.me/84902343992" target="_blank" rel="noopener noreferrer">Trần Minh Sang</a> để cập nhật thông tin thiết bị.'))
 				return render(request,'home/home.html',{
 					'pendings':pendings,
 					'user_login':user_login,
@@ -98,7 +98,7 @@ def home(request):
 					'counts':counts,
 					})
 		except:
-			messages.error(request,('Thông tin chưa chính xác 2.<br> Vui lòng liên hệ <a href="https://zalo.me/84902343992">Trần Minh Sang</a> để cập nhật thông tin thiết bị.'))
+			messages.error(request,('Thông tin chưa chính xác 2.<br> Vui lòng liên hệ <a href="https://zalo.me/84902343992" target="_blank" rel="noopener noreferrer">Trần Minh Sang</a> để cập nhật thông tin thiết bị.'))
 			return render(request,'home/home.html',{
 							'pendings':pendings,
 							'user_login':user_login,
