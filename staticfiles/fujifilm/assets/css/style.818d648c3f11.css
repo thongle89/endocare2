@@ -451,7 +451,7 @@ h1, h2, h3, h4, h5, h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: url("/static/fujifilm/hero.jpg") top center;
+  background: url("/static/fujifilm/hero.d2c65c6b5d60.jpg") top center;
   background-size: cover;
   position: relative;
 }
@@ -756,7 +756,7 @@ section {
 # Cta
 --------------------------------------------------------------*/
 .cta {
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("../img/cta-bg.jpg") fixed center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("../img/cta-bg.31f04cc44aaa.jpg") fixed center center;
   background-size: cover;
   padding: 120px 0;
 }
@@ -868,7 +868,7 @@ section {
 # Counts
 --------------------------------------------------------------*/
 .counts {
-  background: url("/static/fujifilm/assets/img/counts-bg.jpg") center center no-repeat;
+  background: url("/static/fujifilm/assets/img/counts-bg.3908049daee5.jpg") center center no-repeat;
   background-size: cover;
   padding: 80px 0 60px 0;
   position: relative;
