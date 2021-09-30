@@ -52,7 +52,7 @@
         <div class="col-xl-9 d-flex align-items-center justify-content-lg-between">
           <!-- <h1 class="logo me-auto me-lg-0"><a href="{% url 'home' %}">FUJIFILM</a></h1> -->
           <!-- Uncomment below if you prefer to use an image logo -->
-           <a href="{% url 'home' %}" class="logo me-auto me-lg-0"><img src="{% static 'fujifilm/logo.png' %}" alt="" class="img-fluid"></a>
+           <a href="{% url 'home' %}" class="logo me-auto me-lg-0"><img src="{% static 'fujifilm/fujifilm_white.png' %}" alt="" class="img-fluid"></a>
 
           <nav id="navbar" class="navbar order-last order-lg-0">
             <ul>
@@ -66,10 +66,21 @@
               {% if user.is_authenticated %}
               <li class="dropdown"><a href="#"><span>Hi, {{ user|capfirst }}</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
-                  {% if user.is_staff %}
+                  {% if user.is_staff %} <!-- FFVN -->
                   <li><a href="{% url 'admin:index'%}">Admin</a></li>
+                  <li><a class="dropdown-item" href="{% url 'devices-xls' %}">Tải danh sách</a></li>
                   {% endif %}
+                  {% if user.customer %}
+                    {% if user.customer.web_name %}
+                      <li><a class="dropdown-item" href="{% url 'devices-xls' %}">Danh sách thiết bị<br>{{user.customer.web_name}}</a></li>
+                    {% else %}
+                      <li><a class="dropdown-item" href="{% url 'devices-xls' %}">Danh sách thiết bị<br>{{user.customer}}</a></li>
+                    {% endif %}
+                  {% endif %}
+
+                  
                   <li><a href="{% url 'logout-user' %}">Đăng Xuất</a></li>
+
                 </ul>
               </li>
               {% else %}
@@ -303,7 +314,7 @@
     <section id="quick-search" class="services">
       <div class="container">
         <div class="section-title">
-          <h2>Kiểm tra thông tin thiết bị</h2>
+          <h2>Kiểm tra nhanh</h2>
          
         </div>
         <form  method ="POST" action="">
@@ -463,15 +474,24 @@
       <div class="container">
 
         <div class="section-title">
-          <h2>Liên Hệ</h2>
+          <h2 style="color: #eee">Liên Hệ</h2>
           <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
         </div>
       </div>
 
-      <div>
-        <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.3549091351956!2d106.70146551432042!3d10.784105992316347!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4bd099788f%3A0xa9ea3f4bcc65a185!2zMzcgxJAuIFTDtG4gxJDhu6ljIFRo4bqvbmcsIELhur9uIE5naMOpLCBRdeG6rW4gMSwgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oLCBWaWV0bmFt!5e0!3m2!1sen!2s!4v1632438968385!5m2!1sen!2s" frameborder="0" allowfullscreen></iframe>
-        <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.4276307341524!2d105.84725321420218!3d21.015568786005463!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab8c5715c9d7%3A0x9eb31d93a98c1dd3!2zMTI1IELDoCBUcmnhu4d1LCBOZ3V54buFbiBEdSwgSGFpIELDoCBUcsawbmcsIEjDoCBO4buZaSwgVmlldG5hbQ!5e0!3m2!1sen!2s!4v1632446377351!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-      </div>
+      <!-- <div class="container"> -->
+        <div class="row gx-5">
+          
+          <div class="col">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7838.709818070182!2d106.703654!3d10.784106!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4955ae49a1%3A0xe81c36d0c6f8a17d!2zMzcgxJAuIFTDtG4gxJDhu6ljIFRo4bqvbmcsIELhur9uIE5naMOpLCBRdeG6rW4gMSwgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oLCBWaWV0bmFt!5e0!3m2!1sen!2sus!4v1632477027602!5m2!1sen!2sus" width="600" height="450" style="margin-left: 50px;border:0;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+          
+          <div class="col">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7448.855250780226!2d105.849442!3d21.015569000000003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab8c5715c9d7%3A0x9eb31d93a98c1dd3!2zMTI1IELDoCBUcmnhu4d1LCBOZ3V54buFbiBEdSwgSGFpIELDoCBUcsawbmcsIEjDoCBO4buZaSwgVmlldG5hbQ!5e0!3m2!1sen!2sus!4v1632477048341!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+          
+        </div>
+      <!-- </div> -->
 
       <div class="container">
 
@@ -503,35 +523,43 @@
 
             </div>
 
-          </div>
+          </div> <!-- beside infor -->
 
           <div class="col-lg-8 mt-5 mt-lg-0">
+            <div class="info">
+              <h4>FUJIFILM GROUP</h4>
+            
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 col-xs-6">
+                    <div class="col">
+                    
+                      <img src="{% static 'fujifilm/fujifilm_white.png' %}" class="img-fluid" alt="">
 
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3 col-md-4 col-xs-6">
+                    <div class="col">
+                    
+                      <img src="{% static 'fujifilm/fujifilm holding.png' %}" class="img-fluid" alt="">
+
+                    </div>
+                  </div>
+                  
               </div>
-              <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-              </div>
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form>
+
+            </div>
+
+          </div>
+          
 
           </div>
 
+
+          
+
+          </div>
         </div>
 
       </div>
@@ -542,8 +570,8 @@
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container">
-      <h3>Fujifilm Vietnam</h3>
-      <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
+      <h3>Fujifilm Việt Nam</h3>
+      <p>Value from Innovation</p>
       <div class="social-links">
         <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
         <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>

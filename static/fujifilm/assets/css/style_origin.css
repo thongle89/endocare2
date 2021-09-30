@@ -869,7 +869,7 @@ section {
 # Counts
 --------------------------------------------------------------*/
 .counts {
-  background: url("/static/fujifilm/img/counts-bg.jpg") center center no-repeat;
+  background: url("../img/counts-bg.jpg") center center no-repeat;
   background-size: cover;
   padding: 80px 0 60px 0;
   position: relative;
@@ -1322,8 +1322,6 @@ section {
 .contact .info {
   width: 100%;
   background: #000;
-  transition: all 0.5s;
-  background: rgba(40,40,40, 0.5);
 }
 
 .contact .info i {
@@ -1338,20 +1336,14 @@ section {
   font-size: 22px;
   font-weight: 600;
   margin-bottom: 5px;
-  color: #f4f4f4;
+  color: #282828;
 }
-.contact .info h6 {
-  padding: 0 0 0 60px;
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #f4f4f4;
-}
+
 .contact .info p {
   padding: 0 0 0 60px;
   margin-bottom: 0;
   font-size: 14px;
-  color: #f4f4f4;
+  color: #5b5b5b;
 }
 
 .contact .info .email, .contact .info .phone {
@@ -1360,12 +1352,11 @@ section {
 
 .contact .php-email-form {
   width: 100%;
-  background: rgba(40,40,40, 0.5);
+  background: #fff;
 }
 
 .contact .php-email-form .form-group {
   padding-bottom: 8px;
-
 }
 
 .contact .php-email-form .error-message {

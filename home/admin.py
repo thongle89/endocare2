@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Pending,Dealer,Customer,Exfm
+from .models import Pending,Dealer,Customer,Exfm,Part,Rcode,Device
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 
@@ -61,3 +61,49 @@ class CustomerAdmin(ImportExportModelAdmin):
 	search_fields =('web_name','dealer','city')
 
 admin.site.register(Customer,CustomerAdmin)
+
+class PartResource(resources.ModelResource):
+	class Meta:
+		model = Part
+		# import_id_fields = ('rma',)
+		exclude =('',)
+
+class PartAdmin(ImportExportModelAdmin):
+	resource_class = PartResource
+	list_display = ('rma','part_no','part_description','vie_name')
+	list_filter = ('vie_name',)
+	search_fields = ['rma','part_no','vie_name',]
+	ordering = ('rma','part_no')
+
+admin.site.register(Part,PartAdmin)
+
+class RcodeResource(resources.ModelResource):
+	class Meta:
+		model = Rcode
+		# import_id_fields = ('rma',)
+		exclude =('',)
+
+class RcodeAdmin(ImportExportModelAdmin):
+	resource_class = RcodeResource
+	list_display = ('rma','r_code','r_description','vie_name')
+	list_filter = ('vie_name',)
+	search_fields = ('rma','part_no','vie_name',)
+	ordering = ('rma','r_code')
+
+admin.site.register(Rcode,RcodeAdmin)
+
+class DeviceResource(resources.ModelResource):
+	class Meta:
+		model = Device
+		import_id_fields = ('serial',)
+		exclude =('',)
+
+class DeviceAdmin(ImportExportModelAdmin):
+	resource_class = DeviceResource
+	list_display = ('serial','customer','model','installed_date','warranty_date', \
+							'last_repair_date')
+	list_filter = ('model','type_s',)
+	search_fields = ('customer','model','serial',)
+	ordering = ('-installed_date','customer')
+
+admin.site.register(Device,DeviceAdmin)

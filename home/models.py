@@ -85,3 +85,32 @@ class Pending(models.Model):
 
 	def __str__(self):
 		return self.rma_id.rma
+
+class Part(models.Model):
+	rma = models.ForeignKey(Exfm,blank=True,null=True,on_delete = models.CASCADE)
+	part_no = models.CharField('Part No.',max_length = 15)
+	part_description = models.CharField('Part Name',max_length = 50)
+	vie_name = models.CharField('Tên Tiếng Việt', max_length =50,null = True,blank = True)
+
+	def __str__(self):
+		return self.rma.rma
+
+class Rcode(models.Model):
+	rma = models.ForeignKey(Exfm,blank=True,null=True,on_delete = models.CASCADE)
+	r_code = models.CharField('R-Code.',max_length = 15)
+	r_description = models.CharField('Description',max_length = 50)
+	vie_name = models.CharField('Tên Tiếng Việt', max_length =50,null = True,blank = True)
+
+	def __str__(self):
+		return self.rma.rma
+
+class Device(models.Model):
+	customer  = models.ForeignKey(Customer,on_delete = models.CASCADE)
+	serial = models.CharField('Số máy',max_length=20,primary_key = True)
+	model = models.CharField('Kiểu máy',max_length=20)
+	type_s =models.CharField('Loại máy',max_length=50,blank=True,null=True)
+	installed_date = models.DateField('Ngày lắp đặt',null = True,blank = True)
+	warranty_date = models.DateField('Bảo hành đến',null = True,blank = True)
+	last_repair_date = models.DateField('Lần cuối sửa chữa',null = True,blank = True)
+	
+	

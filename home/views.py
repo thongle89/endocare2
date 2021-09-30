@@ -1,14 +1,77 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from .models import Pending
+from .models import Pending,Part,Rcode,Device
 from .forms import PendingForm
 from django.core.paginator import Paginator
 #import User table from member
 from django.contrib.auth import get_user_model
-
+from django.http import HttpResponse
+import xlwt
+import datetime
 User = get_user_model()
 
 from whiteboard.models import Event
+
+def devices_xls(request):
+	try:
+		user_login = User.objects.get(username=request.user)
+		if user_login.is_ffvn:
+			devices= Device.objects.all().values_list('customer__web_name','type_s','model','serial','installed_date','warranty_date', \
+							'last_repair_date')
+			columns=['Khách Hàng','Loại Máy','Kiểu Máy','Số Máy','Ngày Lắp Đặt','Ngày Hết Bảo Hành',
+			'Ngày sửa chữa gần nhất']
+			customer_name ='All'
+		elif user_login.customer != None:
+			devices = Device.objects.filter(customer=user_login.customer).values_list('type_s','model','serial','installed_date','warranty_date', \
+							'last_repair_date')
+			columns=['Loại Máy','Kiểu Máy','Số Máy','Ngày Lắp Đặt','Ngày Hết Bảo Hành',
+			'Ngày sửa chữa gần nhất']
+			customer_name = user_login.customer
+
+	except:
+		pass
+
+
+	response = HttpResponse(content_type='application/ms-excel')
+	response['Content-Disposition']='attachment; filename=ThietBi_' + \
+				str(customer_name) + '_' + str(datetime.date.today()) + '.xls'
+	
+	wb = xlwt.Workbook(encoding = 'utf-8')
+	ws = wb.add_sheet('Thiết Bị')
+	row_num = 0
+	font_style = xlwt.XFStyle()
+	font_style.font.bold = True
+
+	
+
+	for col_num in range(len(columns)):
+		ws.write(row_num,col_num,columns[col_num],font_style)
+
+	font_style = xlwt.XFStyle()
+	
+
+
+	#Designate The Model
+	# if customer_name == 'None':
+	# 	devices= Device.objects.all().values_list('customer__web_name','type_s','model','serial','installed_date','warranty_date', \
+	# 						'last_repair_date')
+	# else:
+	# 	devices = Device.objects.filter(customer=customer_name).values_list('type_s','model','serial','installed_date','warranty_date', \
+	# 						'last_repair_date')
+
+	for device in devices:
+		row_num+=1
+
+		for col_num in range(len(device)):
+			if str(device[col_num]) != 'None':
+				ws.write(row_num,col_num,str(device[col_num]),font_style)
+	wb.save(response)
+	
+	return response
+
+	
+	
+	
 
 def update_pending(request,rma_id):
 	pending = Pending.objects.get(rma_id=rma_id)
@@ -34,12 +97,17 @@ def quick_search(request,rma,sn):
 	rma = rma.upper()
 	sn = sn.upper()
 	pending = Pending.objects.get(rma_id=rma)
+	parts = Part.objects.all()
+	rcodes = Rcode.objects.all()
+	rcount = rcodes.count()
 	if sn==pending.rma_id.sn.upper():
 
 		return render(request,'home/quick_search.html',{
 			'pending':pending,
 			'rma':rma,
 			'sn':sn,
+			'parts':parts,
+			'rcodes':rcodes,
 
 			})
 
@@ -49,6 +117,9 @@ def home(request):
 	user_login=()
 	counts = 0
 	events = Event.objects.all()
+	parts = Part.objects.all()
+	rcodes = Rcode.objects.all()
+	rcount = rcodes.count()
 	# home and device section
 	try:
 		user_login = User.objects.get(username=request.user)
@@ -104,15 +175,18 @@ def home(request):
 							'user_login':user_login,
 							'nums':nums,
 							'counts':counts,
+							'events':events,
+							
 							})	
-	else:	
+	# else:	
 
 
-		return render(request,'home/home.html',{
-				'pendings':pendings,
-				'user_login':user_login,
-				'nums':nums,
-				'counts':counts,
-				'events':events,
-				})
-	
+
+	return render(request,'home/home.html',{
+			'pendings':pendings,
+			'user_login':user_login,
+			'nums':nums,
+			'counts':counts,
+			'events':events,
+			
+		})

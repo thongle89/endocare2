@@ -143,7 +143,36 @@
                   </tr>
                   <tr>
                     <td>Bộ phận liên quan:</td>
-                    <td>{{pending.rma_id.issue_part }}</td>
+                    <td>{{pending.rma_id.issue_part }}
+                      {{ rcount }}
+                      <ul>  
+                          {% for rcode in rcodes %}
+                            {% if rcode.rma.rma == pending.rma_id.rma %}
+                            
+                              <li>{{ rcode.vie_name }}</li>
+
+                            {% endif %}
+
+                          {% endfor %}
+                      </ul>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Bộ phận cần thay thế:</td>
+                    <td>{{pending.rma_id.issue_part }}
+                      {{ rcount }}
+                      <ul>  
+                          {% for part in parts %}
+                            {% if part.rma == pending.rma_id %}
+                            
+                              <li>{{ part.vie_name }}</li>
+
+                            {% endif %}
+
+                          {% endfor %}
+                      </ul>
+                    </td>
                   </tr>
                   
                 </tbody><br>

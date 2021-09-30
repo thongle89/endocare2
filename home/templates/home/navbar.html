@@ -27,8 +27,10 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {% if user.is_staff %}
-                <li><a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a></li>
+                  <li><a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a></li>
+                  <li><a class="dropdown-item" href="{% url 'device-xls' %}">Tải danh sách</a></li>
                 {% endif %}
+
                 <li><a class="dropdown-item" href="{% url 'logout-user' %}">Đăng Xuất</a></li>
               </ul>
             </li>
