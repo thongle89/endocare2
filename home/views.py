@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from .models import Pending,Part,Rcode,Device
-from .forms import PendingForm
+from .models import Pending,Part,Rcode,Device,Exfm
+from .forms import PendingForm,CommentForm
 from django.core.paginator import Paginator
 #import User table from member
 from django.contrib.auth import get_user_model
@@ -10,7 +10,7 @@ import xlwt
 import datetime
 User = get_user_model()
 
-from whiteboard.models import Event
+from whiteboard.models import Event,Comment
 
 def devices_xls(request):
 	try:
@@ -50,15 +50,6 @@ def devices_xls(request):
 	font_style = xlwt.XFStyle()
 	
 
-
-	#Designate The Model
-	# if customer_name == 'None':
-	# 	devices= Device.objects.all().values_list('customer__web_name','type_s','model','serial','installed_date','warranty_date', \
-	# 						'last_repair_date')
-	# else:
-	# 	devices = Device.objects.filter(customer=customer_name).values_list('type_s','model','serial','installed_date','warranty_date', \
-	# 						'last_repair_date')
-
 	for device in devices:
 		row_num+=1
 
@@ -71,6 +62,24 @@ def devices_xls(request):
 
 	
 	
+def comments(request,rma_id):
+	comments = Comment.objects.all().order_by('cmt_time')
+	
+	if request.method=="POST":
+		user_login = request.user
+		cmt_text = request.POST['cmt_text']
+		c = Comment.objects.create(rma_id = Exfm.objects.get(pk=rma_id),username=user_login,cmt_text=cmt_text)
+		c.save()
+		pending = Pending.objects.get(rma_id=rma_id)
+		sn = pending.rma_id.sn
+		messages.success(request,('Cập nhật thành công.'))
+		return redirect('quick-search',rma_id,sn)
+	else:
+		return render(request,'home/comments.html',{
+			'comments':comments,
+			'rma':rma_id,
+			# 'form':form,
+			})
 	
 
 def update_pending(request,rma_id):
@@ -97,9 +106,12 @@ def quick_search(request,rma,sn):
 	rma = rma.upper()
 	sn = sn.upper()
 	pending = Pending.objects.get(rma_id=rma)
+	comments = Comment.objects.all().order_by('cmt_time')
 	parts = Part.objects.all()
 	rcodes = Rcode.objects.all()
 	rcount = rcodes.count()
+	
+
 	if sn==pending.rma_id.sn.upper():
 
 		return render(request,'home/quick_search.html',{
@@ -108,8 +120,28 @@ def quick_search(request,rma,sn):
 			'sn':sn,
 			'parts':parts,
 			'rcodes':rcodes,
+			'comments':comments,
 
 			})
+
+	if request.method=="POST":
+		binh_luan = request.POST['binh_luan']
+		user_login = User.objects.get(username=request.user)
+		
+		form = CommentForm(request.POST)
+		if form.is_valid():
+			form.save()
+			messages.success('Bình luận thành công')
+			return render(request,'home/quick_search.html',{
+				'pending':pending,
+				'rma':rma,
+				'sn':sn,
+				'parts':parts,
+				'rcodes':rcodes,
+				'comments':comments,
+
+				})
+
 
 def home(request):
 	pendings=()

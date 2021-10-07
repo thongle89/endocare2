@@ -1,0 +1,56 @@
+{% extends 'home/base.html' %}
+{% load static%}
+{% block content %}
+<!-- ======= Breadcrumbs ======= -->
+<!-- <section id="breadcrumbs" class="breadcrumbs">
+  <div class="container">
+
+    <ol>
+      <li><a href="/themes/trial/#devices">Thiết bị</a></li>
+      <li>Inner Page</li>
+    </ol>
+    <h2>Inner Page</h2>
+
+  </div>
+</section> --><!-- End Breadcrumbs -->
+<section class="inner-page">
+	<div class="container">
+		{% if user.is_authenticated %}
+        <div class="card">
+          <h3>Bình luận</h3>
+          <div class="card text-dark bg-light mb-3" >
+            
+            
+            {% for comment in comments %}
+              {% if comment.rma_id|upper == rma|upper %}
+                <div class="card-body">
+                  <h5 class="card-title">{{ comment.username.full_name }} - {{comment.cmt_time }}</h5>
+                  <p class="card-text">{{ comment.cmt_text }}</p>
+                </div>
+              {% endif %}
+            {% endfor %}
+
+
+          </div>
+          <div class="mb-3">
+            <form method ="POST" action="">
+              {% csrf_token %}
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Viết bình luận" name = "cmt_text"></textarea>
+              <br>
+              <input type="submit" value ="Bình Luận" class = "btn btn-primary">
+              
+
+            </form>
+          </div>
+        </div>
+      </div>
+		{% else %}
+			<br>
+			<h3>Bạn không được cấp quyền để vào trang này.</h3>
+		{% endif %}
+	</div> <!-- container -->
+</section>
+
+	
+
+{% endblock %}

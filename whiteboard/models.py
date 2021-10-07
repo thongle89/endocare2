@@ -7,10 +7,10 @@ User = get_user_model()
 class Comment(models.Model):
 	rma_id = models.ForeignKey(Exfm,on_delete = models.CASCADE)
 	username = models.ForeignKey(User,on_delete=models.SET_NULL,blank=True,null=True)
-	cmt_time = models.DateTimeField('Comment Time')
+	cmt_time = models.DateTimeField(auto_now_add=True)
 	cmt_text = models.TextField('Nội dung')
 	def __str__(self):
-		return self.id
+		return str(self.rma_id)
 
 
 class Event(models.Model):
@@ -31,5 +31,6 @@ class Event(models.Model):
 
 	def __str__(self):
 		return self.name
+
 
 
