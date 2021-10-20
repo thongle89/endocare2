@@ -232,7 +232,7 @@
         <br>
         {% if user.is_authenticated %}
         <div class="card">
-          <h3>Bình luận</h3>
+          <h3>Phản hồi của Khách hàng</h3>
           <div class="card text-dark bg-light mb-3" >
             
             
@@ -245,7 +245,7 @@
               {% endif %}
             {% endfor %}
           <div class="card-body">  
-            <a href="{% url 'comments' pending.rma_id %}" class="btn btn-primary">Bình luận</a>
+            <a href="{% url 'comments' pending.rma_id %}" class="btn btn-primary">Phản hồi</a>
           </div>
 
 

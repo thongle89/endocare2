@@ -23,7 +23,7 @@ urlpatterns = [
     path('',include('home.urls')),
     path('accounts/',include('django.contrib.auth.urls')),
     path('accounts/',include('accounts.urls')),
-    # path('boards/',include('whiteboard.urls')),
+    path('whiteboard/',include('whiteboard.urls')),
     
     path('reset_password/',auth_views.PasswordResetView.as_view(template_name='userauth/password_reset.html',form_class=UserPasswordResetForm),name='reset_password'),
     path('reset_password_sent/',auth_views.PasswordResetDoneView.as_view(template_name='userauth/password_reset_done.html'),name='password_reset_done'),

@@ -1082,6 +1082,9 @@ section {
 .pricing {
   background-color: #f9f9f9;
 }
+.pricing p{
+  color: grey;
+}
 
 .pricing .box {
   padding: 40px 20px;
