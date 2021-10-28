@@ -71,10 +71,8 @@ class Exfm(models.Model):
 		return self.rma
 
 class Pending(models.Model):
-	rma_id = models.ForeignKey(Exfm,blank=True,null=True,on_delete = models.SET_NULL)
+	rma_id = models.ForeignKey(Exfm,blank=True,null=True,on_delete = models.CASCADE)
 	dealer= models.ForeignKey(Dealer,blank=True,null=True,on_delete = models.SET_NULL)
-	# model_p = models.ForeignKey(ExFM.model_d,blank=True,null=True,on_delete = models.SET_NULL)
-	# serial_p = models.ForeignKey(ExFM.sn,blank=True,null=True,on_delete = models.SET_NULL)
 	type_s = models.CharField('Type',max_length=20,blank=True,null=True)
 	tr_date = models.DateField('Technical_Report',blank=True,null=True)
 	part_list_date = models.DateField('Part_List',blank=True,null=True)
