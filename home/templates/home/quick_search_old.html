@@ -26,16 +26,16 @@
            <strong>RMA No#: {{ pending }} - {{ pending.rma_id.repair_status}}</strong>
           </div>
           <div class="card-body">
-            <h3 class="card-title">{{ pending.rma_id.customer }}</h3>
+            <h3 class="card-title">{{ pending.rma_id.customer.web_name }}</h3>
             <p class="card-text">
-              <ul>
+              
               <br>
               <center>
                 
                 <h6>ExFM: {{ pending.rma_id.repair_status}} {{ pending.rma_id.e_score}}</h6>
                 <h6>Pending: {{ pending.p_status}} {{ pending.p_score}}</h6>
                 {% if pending.p_score > pending.rma_id.e_score %}
-                Pending
+                
                 {%if pending.p_score == 0 %}
                 <img src = "/static/fujifilm/icon/1_nhan_hang.svg" alt="My Happy SVG"/>
                 {% endif %}
@@ -71,7 +71,7 @@
                 
                 
                 {% else %}
-                ExFm
+                
                 {%if pending.rma_id.e_score == 0 %} <!-- Create -->
                 <img src = "/static/fujifilm/icon/1_nhan_hang.svg" alt="My Happy SVG"/>
                 {% endif %}
@@ -110,26 +110,112 @@
                 
 
               </center>
-              <h5>Thông tin thiết bị</h5>
-              <li>Vị trí hiện tại: Trung tâm sửa chữa {{ pending.rma_id.location }}</li>
-              
-              <li>Model: {{ pending.rma_id.model_d }}</li>
-              <li>Serial: {{ pending.rma_id.sn }}</li>
-              <li >Ngày lắp đặt: {{ pending.rma_id.install_date|date:'d/m/Y' }}</li>
-              <li>Tình trạng thiết bị: Hư <strong>{{ pending.rma_id.repair_size}}</strong></li>
-              <li>Bộ phận liên quan: <strong>{{ pending.rma_id.issue_part}} </strong></li>
 
-              <br>
-              <h5>Tiến độ: </h5>
-              <li>Ngày nhận thiết bị: {{ pending.rma_id.receive_date|date:'d/m/Y' }}</li>
-              <li>Ngày giám định kỹ thuật: {{ pending.rma_id.inspection_date|date:'d/m/Y' }}</li>
-              <li>Ngày gửi báo giá: <strong>{{ pending.quotation_date|date:'d/m/Y' }}</strong></li>
-              <li>Ngày xác nhận sửa chữa: {{ pending.p|date:'d/m/Y' }}</li>
-              <li>Ngày xuất linh kiện: {{ pending.part_list_date|date:'d/m/Y' }}</li>
-              <li>Hoàn tất sửa chữa: {{ pending.p|date:'d/m/Y' }}</li>
-              <li>Kỹ sư thực hiện: {{ pending.rma_id.pic }}<strong>/Bỏ hay Để????</strong></li>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: 30%;">Thông tin thiết bị</th>
+                    <th scope="col" ></th>
+                    
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Vị trí hiện tại:</td>
+                    {% if pending.rma_id.location == 'Hanoi'%}
+                    <td>Trung tâm sửa chữa Hà Nội</td>
+                    {% else %}
+                      <td>Trung tâm sửa chữa TP.HCM</td>
+                    {% endif %}
+                  </tr>
+                  <tr>
+                    <td>Model:</td>
+                    <td>{{pending.rma_id.model_d }}</td>
+                  </tr>
+                  <tr>
+                    <td>Số máy:</td>
+                    <td>{{pending.rma_id.sn }}</td>
+                  </tr>
+                  <tr>
+                    <td>Ngày lắp đặt:</td>
+                    <td>{{pending.rma_id.install_date|date:'d/m/Y' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Tình trạng thiết bị:</td>
+                    <td>Hư hỏng {{pending.rma_id.repair_size }}</td>
+                  </tr>
+                  <tr>
+                    <td>Bộ phận liên quan:</td>
+                    <td>{{pending.rma_id.issue_part }}
+                      {{ rcount }}
+                      <ul>  
+                          {% for rcode in rcodes %}
+                            {% if rcode.rma.rma == pending.rma_id.rma %}
+                            
+                              <li>{{ rcode.vie_name }}</li>
 
-              </ul></p>
+                            {% endif %}
+
+                          {% endfor %}
+                      </ul>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Bộ phận cần thay thế:</td>
+                    <td>{{pending.rma_id.issue_part }}
+                      {{ rcount }}
+                      <ul>  
+                          {% for part in parts %}
+                            {% if part.rma == pending.rma_id %}
+                            
+                              <li>{{ part.vie_name }}</li>
+
+                            {% endif %}
+
+                          {% endfor %}
+                      </ul>
+                    </td>
+                  </tr>
+                  
+                </tbody><br>
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: 30%;">Tiến độ</th>
+                    <th scope="col" ></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Ngày nhận thiết bị:</td>
+                    <td>{{ pending.rma_id.receive_date|date:'d/m/Y' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Ngày giám định kỹ thuật:</td>
+                    <td>{{ pending.rma_id.inspection_date|date:'d/m/Y' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Ngày gửi báo giá:</td>
+                    <td>{{ pending.quotation_date|date:'d/m/Y' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Ngày xác nhận sửa chữa:</td>
+                    <td>{{ pending.confirm_date|date:'d/m/Y' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Ngày xuất linh kiện:</td>
+                    <td>{{ pending.part_list_date|date:'d/m/Y' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Hoàn tất sửa chữa:</td>
+                    <td>{{ pending.p|date:'d/m/Y' }}</td>
+                  </tr>
+                  
+                  
+                </tbody>
+              </table>
+            </p>
               {% if user.is_authenticated %}
                 <a href="/#devices" class="btn btn-success">Quay lại</a>
               {% else %}
@@ -144,24 +230,35 @@
       </div>
       <div id="comments" class="container">
         <br>
+        {% if user.is_authenticated %}
         <div class="card">
-          <h3>Bình luận</h3>
+          <h3>Phản hồi của Khách hàng</h3>
           <div class="card text-dark bg-light mb-3" >
             
-            <div class="card-body">
-              <h5 class="card-title">Lê Quang Thông - 22/09/2021 20:12</h5>
-              <p class="card-text">Không biết viết gì cả</p>
-            </div>
+            
+            {% for comment in comments %}
+              {% if comment.rma_id|upper == rma|upper %}
+                <div class="card-body">
+                  <h5 class="card-title">{{ comment.username.full_name }} - {{comment.cmt_time }}</h5>
+                  <p class="card-text">{{ comment.cmt_text }}</p>
+                </div>
+              {% endif %}
+            {% endfor %}
+          <div class="card-body">  
+            <a href="{% url 'comments' pending.rma_id %}" class="btn btn-primary">Phản hồi</a>
+          </div>
+
+
           </div>
           <div class="mb-3">
-            <form>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Viết bình luận"></textarea>
-              <br>
-              <input type="submit" value ="Bình Luận" class = "btn btn-primary">
-            </form>
+            
+
           </div>
         </div>
       </div>
+      {% else %}
+        Vui lòng <a href="{% url 'login-user' %}">Đăng Nhập</a> để bình luận.
+      {% endif %}
     </section>
 
 {% endblock %}

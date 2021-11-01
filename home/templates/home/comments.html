@@ -17,7 +17,7 @@
 	<div class="container">
 		{% if user.is_authenticated %}
         <div class="card">
-          <h3>Bình luận</h3>
+          <h3>Phản hồi</h3>
           <div class="card text-dark bg-light mb-3" >
             
             
@@ -35,9 +35,9 @@
           <div class="mb-3">
             <form method ="POST" action="">
               {% csrf_token %}
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Viết bình luận" name = "cmt_text"></textarea>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Viết Phản hồi" name = "cmt_text"></textarea>
               <br>
-              <input type="submit" value ="Bình Luận" class = "btn btn-primary">
+              <input type="submit" value ="Phản Hồi" class = "btn btn-primary">
               
 
             </form>

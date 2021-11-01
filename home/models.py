@@ -55,7 +55,7 @@ class Exfm(models.Model):
 	pic = models.CharField('PIC',max_length=30,blank=True,null=True)
 	repair_status = models.CharField('Status',max_length=30,blank=True,null=True)
 	e_score = models.IntegerField('e_score',blank=True,null=True)
-	w_score = models.IntegerField('w_score',blank=True,null=True)
+	w_score = models.FloatField('w_score',blank=True,null=True)
 	
 	# dealer= models.ForeignKey(Dealer,blank=True,null=True,on_delete = models.SET_NULL)
 	# type_s = models.CharField('Type',max_length=20,blank=True,null=True)

@@ -9,6 +9,9 @@ class Comment(models.Model):
 	username = models.ForeignKey(User,on_delete=models.SET_NULL,blank=True,null=True)
 	cmt_time = models.DateTimeField(auto_now_add=True)
 	cmt_text = models.TextField('Nội dung')
+	is_verified = models.BooleanField('Xác Nhận',blank=True,null=True)
+	verifier = models.CharField('Người xác nhận',max_length=50,blank=True,null=True)
+	verify_time = models.DateTimeField('Ngày xác nhận',blank=True,null=True)
 	def __str__(self):
 		return str(self.rma_id)
 

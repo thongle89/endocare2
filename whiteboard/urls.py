@@ -5,7 +5,9 @@ from . import views
 
 urlpatterns = [
     
-    path('',views.add_event,name='add-event'),
+    path('events',views.events,name='events'),
+    path('',views.feed_back,name='feed-back'),
+    path('verified_comment/<comment_id>',views.verify_comment,name='verify-comment')
     
 
     

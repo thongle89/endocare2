@@ -91,7 +91,7 @@ def update_pending(request,rma_id):
 	if form.is_valid():
 		form.save()
 		
-		messages.success(request,('Cập nhật thành công.'))
+		messages.success(request,('Phản hồi thành công.'))
 		return redirect('quick-search',rma,sn)
 	# else:
 	# 	return redirect('quick-search',rma,sn)
@@ -109,7 +109,7 @@ def quick_search(request,rma,sn):
 	comments = Comment.objects.all().order_by('cmt_time')
 	parts = Part.objects.all()
 	rcodes = Rcode.objects.all()
-	rcount = rcodes.count()
+	user_login = User.objects.get(username=request.user)
 	
 
 	if sn==pending.rma_id.sn.upper():
@@ -121,26 +121,27 @@ def quick_search(request,rma,sn):
 			'parts':parts,
 			'rcodes':rcodes,
 			'comments':comments,
+			'user_login':user_login,
 
 			})
 
-	if request.method=="POST":
-		binh_luan = request.POST['binh_luan']
-		user_login = User.objects.get(username=request.user)
+	# if request.method=="POST":
+	# 	binh_luan = request.POST['binh_luan']
+	# 	user_login = User.objects.get(username=request.user)
 		
-		form = CommentForm(request.POST)
-		if form.is_valid():
-			form.save()
-			messages.success('Bình luận thành công')
-			return render(request,'home/quick_search.html',{
-				'pending':pending,
-				'rma':rma,
-				'sn':sn,
-				'parts':parts,
-				'rcodes':rcodes,
-				'comments':comments,
+	# 	form = CommentForm(request.POST)
+	# 	if form.is_valid():
+	# 		form.save()
+	# 		messages.success('Bình luận thành công')
+	# 		return render(request,'home/quick_search.html',{
+	# 			'pending':pending,
+	# 			'rma':rma,
+	# 			'sn':sn,
+	# 			'parts':parts,
+	# 			'rcodes':rcodes,
+	# 			'comments':comments,
 
-				})
+	# 			})
 
 
 def home(request):

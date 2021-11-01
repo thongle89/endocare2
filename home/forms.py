@@ -52,7 +52,7 @@ class CommentForm(ModelForm):
             'cmt_text':'',
         }
         widgets ={
-            'cmt_text':forms.Textarea(attrs={'class':'form-control','placeholder':'Viết Bình Luận'}),
+            'cmt_text':forms.Textarea(attrs={'class':'form-control','placeholder':'Viết Phản Hồi'}),
             
         }
 

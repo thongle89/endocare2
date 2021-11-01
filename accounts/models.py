@@ -5,7 +5,7 @@ from home.models import Dealer,Customer
 from django.core.validators import RegexValidator
 
 class CustomUser(AbstractUser):
-	full_name = models.CharField(verbose_name=_("Full Name"),max_length=17,null=True,blank=True)
+	full_name = models.CharField(verbose_name=_("Full Name"),max_length=50,null=True,blank=True)
 	phone = models.CharField(verbose_name=_("Phone Number"),max_length=17)
 	email = models.EmailField(unique=True)
 	organization = models.CharField(verbose_name=_("Organization"),max_length=50)
