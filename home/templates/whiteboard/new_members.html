@@ -1,0 +1,54 @@
+{% extends 'home/base.html'%}
+{% load static %}
+
+{% block content %}
+	<section class="inner-page">
+      <div class="container">
+		{% if user.is_staff %}
+			<br>
+			<h3>Thành viên chờ xác nhận</h3>
+			<table class="table table-striped table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">username</th>
+                  <th scope="col">Họ tên</th>
+                  <th scope="col">Điện thoại</th>
+                  <th scope="col">Đơn vị</th>
+                  <th scope="col">Ngày Tham gia</th>
+                  
+                  <th scope="col">Xác nhận</th>
+								</tr>
+              </thead>
+              <tbody>
+                {% for member in unverified %}
+                	
+                  {% if member.is_ffvn %}
+
+									{% else %}
+										{% if member.dealer == None and member.customer == None %}
+                  		<tr>
+		                    <td><a href="">{{ member.username }}</a></td>
+		                    <td>{{ member.full_name }}</a></td>
+		                    <td>{{ member.phone }}</a></td>
+		                    <td>{{ member.organization }}</a></td>
+		                    
+		                    
+		                    <td>{{ member.date_joined|date:'d/m/Y H:i' }}</a></td>
+		                    <td><a href="{% url 'update-member' member.id %}" class="btn btn-outline-primary">Xác nhận</a>
+		                    	<!-- <button type="button" class="btn btn-danger">Xóa</button> -->
+		                    </td>
+			            		</tr>
+			            	{% endif %}
+                  {% endif %}
+
+
+									
+                {% endfor %}
+              </tbody>
+			</table>
+			
+		{% endif %}
+		</div>
+	</section>
+
+{% endblock %}

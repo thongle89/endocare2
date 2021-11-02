@@ -5,8 +5,6 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from .forms import RegisterUserForm
 
 
-
-
 def login_user(request):
     if request.method =="POST":
         username = request.POST['username']
@@ -41,7 +39,7 @@ def register_user(request):
             password = form.cleaned_data['password1']
             user = authenticate(username=username,password=password)
             login(request, user)
-            messages.success(request,("Registration Successful!"))
+            messages.success(request,("Đăng ký tài khoản thành công. Vui lòng kiểm tra email xác thực tài khoản"))
             return redirect('home')
         # else:
         #     message = request.GET.get('message')

@@ -23,7 +23,11 @@
       <div class="container">
         <div class="card">
           <div class="card-header">
-           <strong>RMA No#: {{ pending }} - {{ pending.rma_id.repair_status}}</strong>
+            {% if pending.p_score >= pending.rma_id.e_score %}
+              <strong>RMA No#: {{ pending }} - {{ pending.p_status}}</strong>
+            {% else %}
+              <strong>RMA No#: {{ pending }} - {{ pending.rma_id.repair_status}}</strong>
+            {% endif %}
           </div>
           <div class="card-body">
             <h3 class="card-title">{{ pending.rma_id.customer.web_name }}</h3>
@@ -299,8 +303,10 @@
                 {% if comment.username.username|upper == user_login|upper or user_login.is_ffvn %}
 
                   <div class="card-body">
+                      
                       <h5 class="card-title">{{ comment.username.full_name }} - {{comment.cmt_time|date:'d/m/Y H:i' }}</h5>
                       <p class="card-text">{{ comment.cmt_text }}</p>
+                      
                       {% if comment.is_verified %}
                         <p><small><em>Đã xác nhận phản hồi vào lúc {{ comment.verify_time|date:'H:i d/m/Y' }}</em></small></p>
                       {% else %}

@@ -69,7 +69,10 @@
                   {% if user.is_staff %} <!-- FFVN -->
                   <li><a href="{% url 'admin:index'%}">Admin</a></li>
                   <li><a class="dropdown-item" href="{% url 'devices-xls' %}">Tải danh sách</a></li>
+                  <li><a href="{% url 'new-members'%}">Thành viên mới</a></li>
+                  
                   <li><a class="dropdown-item" href="{% url 'feed-back' %}">Tổng hợp phản hồi</a></li>
+                  <li><a class="dropdown-item" href="{% url 'events' %}">Tổng hợp sự kiện</a></li>
                   {% endif %}
                   {% if user.customer %}
                     {% if user.customer.web_name %}
@@ -97,7 +100,7 @@
             <i class="bi bi-list mobile-nav-toggle"></i>
           </nav><!-- .navbar -->
 
-          <a href="{% url 'home' %}" class="get-started-btn scrollto">Kết nối chậm?</a>
+         <!--  <a href="{% url 'home' %}" class="get-started-btn scrollto">Kết nối chậm?</a> -->
         </div>
       </div>
 
@@ -172,10 +175,13 @@
 
         <div class="section-title">
           <h2>Về Chúng Tôi</h2>
-          <p>Công ty TNHH FUJIFILM Việt Nam là đại diện tại Việt Nam của tập đoàn Fujifilm Corporation – Nhật Bản được thành lập và hoạt động từ tháng 01 năm 1934, có trụ sở chính tại 26-30 Nishiazabu 2-Chome, Minato-Ku, Tokyo 106-8620, Nhật Bản, nhà sản xuất danh tiếng sản phẩm hệ thống nội soi Fujifilm.
-Với mong muốn đem lại trải nghiệm dịch vụ khách hàng thân thiện và tiện lợi cho quý Bệnh viện, phòng khám, cơ sở ý tế và quý Đại lý, chúng tôi xây dựng lên trang web “Fuji Endo Care” với nhiệm vụ cập nhật thường xuyên và kịp thời các thông tin về tình trạng thiết bị nội soi của quý Khách hàng từ khi được Trung Tâm Kỹ Thuật Nội soi Fujifilm Việt Nam tiếp nhận tới khi trả về tận tay Quý khách hàng.
-Với sự ủng hộ và tin tưởng của Quý khách hàng, chúng tôi không ngừng đổi mới vì một thế giới khỏe mạnh hơn. Tập đoàn FUJIFILM chúng tôi tập trung vào công nghệ, sản phẩm, dịch vụ độc nhất nhằm giải quyết các vấn đề khác nhau liên quan đến y tế, góp phần nâng cao chất lượng y tế, tăng cường sức khỏe cộng đồng.
-Với tư cách là một công ty chăm sóc sức khỏe toàn diện, chúng tôi không ngừng đổi mới vì một thế giới khỏe mạnh hơn.</p>
+          <p>Công ty TNHH FUJIFILM Việt Nam là đại diện tại Việt Nam của tập đoàn Fujifilm Corporation – Nhật Bản được thành lập và hoạt động từ tháng 01 năm 1934, có trụ sở chính tại 26-30 Nishiazabu 2-Chome, Minato-Ku, Tokyo 106-8620, Nhật Bản, nhà sản xuất danh tiếng sản phẩm hệ thống nội soi Fujifilm.</p>
+          <br>
+          <p>Mong muốn đem lại trải nghiệm dịch vụ khách hàng thân thiện và tiện lợi cho quý Bệnh viện, phòng khám, cơ sở ý tế và quý Đại lý, chúng tôi xây dựng lên trang web “Fuji Endo Care” với nhiệm vụ cập nhật thường xuyên và kịp thời các thông tin về tình trạng thiết bị nội soi của quý Khách hàng từ khi được Trung Tâm Kỹ Thuật Nội soi Fujifilm Việt Nam tiếp nhận tới khi trả về tận tay Quý khách hàng.</p>
+          <br>
+          <p>Bằng sự ủng hộ và tin tưởng của Quý khách hàng, chúng tôi không ngừng đổi mới vì một thế giới khỏe mạnh hơn. Tập đoàn FUJIFILM chúng tôi tập trung vào công nghệ, sản phẩm, dịch vụ độc nhất nhằm giải quyết các vấn đề khác nhau liên quan đến y tế, góp phần nâng cao chất lượng y tế, tăng cường sức khỏe cộng đồng.</p>
+          <br>
+          <p>Với tư cách là một công ty chăm sóc sức khỏe toàn diện, chúng tôi không ngừng đổi mới vì một thế giới khỏe mạnh hơn.</p>
         </div>
 
       <!--   <div class="row content">

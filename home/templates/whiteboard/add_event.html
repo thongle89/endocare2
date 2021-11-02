@@ -1,0 +1,29 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+{% if user.is_staff %}
+<section class="inner-page">
+	<div class="container">
+		<h1>Tạo sự kiện mới ...</h1>
+		<br>
+		{% if submitted %}
+			Tạo sự kiện thành công<br><br>
+			<a href="{% url 'events'  %}" class="btn btn-success btn-sm">Xem toàn bộ sự kiện</a>
+		{% else %}
+
+			
+			<form action="" method=POST>
+				{%csrf_token%}
+
+				{{ form.as_p }}
+				<input type ="submit" value="Submit" class ="btn btn-success">
+
+			</form>
+		{% endif %}
+	{% else %}
+		<h1>Error 404</h1>
+	</div>
+</section>
+
+{% endif %}
+{% endblock %}

@@ -47,7 +47,7 @@
         <div class="col-xl-9 d-flex align-items-center justify-content-lg-between">
           <!-- <h1 class="logo me-auto me-lg-0"><a href="{% url 'home' %}">FUJIFILM</a></h1> -->
           <!-- Uncomment below if you prefer to use an image logo -->
-           <a href="{% url 'home' %}" class="logo me-auto me-lg-0"><img src="{% static 'fujifilm/icon/white_Slogan_with_red.png' %}" alt="" class="img-fluid"></a>
+           <a href="{% url 'home' %}" class="logo me-auto me-lg-0"><img src="{% static 'fujifilm/white_Slogan_with_red.png' %}" alt="" class="img-fluid"></a>
 
           <nav id="navbar" class="navbar order-last order-lg-0">
             <ul>
@@ -60,6 +60,8 @@
                   {% if user.is_staff %}
                   <li><a href="{% url 'admin:index'%}">Admin</a></li>
                   <li><a href="{% url 'feed-back'%}">Tổng hợp phản hồi</a></li>
+                  <li><a href="{% url 'new-members'%}">Thành viên mới</a></li>
+                  <li><a href="{% url 'events' %}">Tổng hợp sự kiện</a></li>
                   
                   {% endif %}
                   <li><a href="{% url 'logout-user' %}">Đăng Xuất</a></li>
