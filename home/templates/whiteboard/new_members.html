@@ -26,18 +26,22 @@
 
 									{% else %}
 										{% if member.dealer == None and member.customer == None %}
-                  		<tr>
-		                    <td><a href="">{{ member.username }}</a></td>
-		                    <td>{{ member.full_name }}</a></td>
-		                    <td>{{ member.phone }}</a></td>
-		                    <td>{{ member.organization }}</a></td>
-		                    
-		                    
-		                    <td>{{ member.date_joined|date:'d/m/Y H:i' }}</a></td>
-		                    <td><a href="{% url 'update-member' member.id %}" class="btn btn-outline-primary">Xác nhận</a>
-		                    	<!-- <button type="button" class="btn btn-danger">Xóa</button> -->
-		                    </td>
-			            		</tr>
+											{% if member.username == 'robocon2021' %}
+
+											{% else %}
+	                  		<tr>
+			                    <td><a href="">{{ member.username }}</a></td>
+			                    <td>{{ member.full_name }}</a></td>
+			                    <td>{{ member.phone }}</a></td>
+			                    <td>{{ member.organization }}</a></td>
+			                    
+			                    
+			                    <td>{{ member.date_joined|date:'d/m/Y H:i' }}</a></td>
+			                    <td><a href="{% url 'update-member' member.id %}" class="btn btn-outline-primary">Xác nhận</a>
+			                    	<!-- <button type="button" class="btn btn-danger">Xóa</button> -->
+			                    </td>
+				            		</tr>
+				            	{% endif %}
 			            	{% endif %}
                   {% endif %}
 

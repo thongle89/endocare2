@@ -8,6 +8,7 @@ from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 import xlwt
 import datetime
+from django.utils import timezone
 User = get_user_model()
 
 from whiteboard.models import Event,Comment
@@ -109,8 +110,10 @@ def quick_search(request,rma,sn):
 	comments = Comment.objects.all().order_by('cmt_time')
 	parts = Part.objects.all()
 	rcodes = Rcode.objects.all()
-	user_login = User.objects.get(username=request.user)
-	
+	try:
+		user_login = User.objects.get(username=request.user)
+	except:
+		user_login=''
 
 	if sn==pending.rma_id.sn.upper():
 
@@ -149,7 +152,7 @@ def home(request):
 	nums=''
 	user_login=()
 	counts = 0
-	events = Event.objects.all()
+	events = Event.objects.filter(type_e=2,event_date__gte=timezone.now()).order_by('event_date')
 	parts = Part.objects.all()
 	rcodes = Rcode.objects.all()
 	rcount = rcodes.count()
