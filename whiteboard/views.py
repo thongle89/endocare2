@@ -59,14 +59,17 @@ def update_member(request,member_id):
 		if v_check != v_change:
 			contents = f"""Chào {member.full_name},\nTài khoản {member} đã được xác thực.\nBạn đã được cấp quyền để theo dõi tất cả thiết bị thuộc đơn vị {member.organization}
 				"""
-			messages.success(request,(f'Xác nhận thành công. Đã gửi email xác nhận đến {member.email}'))
-			send_mail(
-					'Xác nhận đăng ký thành công',
-					contents,
-					'noreply.endocare@gmail.com',
-					[member.email],
-				fail_silently=False,
-			)
+			try:
+				messages.success(request,(f'Xác nhận thành công. Đã gửi email xác nhận đến {member.email}'))
+				send_mail(
+						'Xác nhận đăng ký thành công',
+						contents,
+						'noreply.endocare@gmail.com',
+						[member.email],
+					fail_silently=False,
+				)
+			except:
+				messages.errors(request,('Không thể gửi email.<a href="https://accounts.google.com/DisplayUnlockCaptcha">DisplayUnlockCapcha</a>'))
 		return redirect('new-members')
 
 	return render(request,'whiteboard/form_update.html',{

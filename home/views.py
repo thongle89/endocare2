@@ -10,6 +10,7 @@ import xlwt
 import datetime
 from django.utils import timezone
 User = get_user_model()
+from django.db.models import Q
 
 from whiteboard.models import Event,Comment
 
@@ -156,10 +157,12 @@ def home(request):
 	parts = Part.objects.all()
 	rcodes = Rcode.objects.all()
 	rcount = rcodes.count()
+	nhan_hang=''
 	# home and device section
 	try:
 		user_login = User.objects.get(username=request.user)
 		if user_login.is_ffvn:
+			# nhan_hang =Pending.objects.filter(Q(p_score=2) | Q(e_score=2))
 			pendings = Pending.objects.all().order_by('rma_id__customer')
 			
 		elif user_login.dealer != None:
@@ -220,6 +223,7 @@ def home(request):
 
 	return render(request,'home/home.html',{
 			'pendings':pendings,
+			'nhan_hang':nhan_hang,
 			'user_login':user_login,
 			'nums':nums,
 			'counts':counts,
