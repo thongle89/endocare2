@@ -69,7 +69,7 @@ def update_member(request,member_id):
 					fail_silently=False,
 				)
 			except:
-				messages.errors(request,('Không thể gửi email.<a href="https://accounts.google.com/DisplayUnlockCaptcha">DisplayUnlockCapcha</a>'))
+				messages.error(request,('Không thể gửi email.<a href="https://accounts.google.com/DisplayUnlockCaptcha">DisplayUnlockCapcha</a>s'))
 		return redirect('new-members')
 
 	return render(request,'whiteboard/form_update.html',{
