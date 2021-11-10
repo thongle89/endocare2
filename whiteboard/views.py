@@ -53,12 +53,27 @@ def update_member(request,member_id):
 	v_check=[member.is_ffvn,member.dealer,member.customer]
  
 	if form.is_valid():
-
+		if member.is_ffvn: cap_do = "FFVN"
+		if member.dealer !='': cap_do = f"Đại lý-{member.dealer}"
+		if member.customer !='': cap_do = f"Đơn vị sử dụng-{member.customer}"
+		if member.customer.web_name !='': cap_do = f"Đơn vị sử dụng-{member.customer.web_name}"
+		
 		form.save()
 		v_change=[member.is_ffvn,member.dealer,member.customer]
 		if v_check != v_change:
-			contents = f"""Chào {member.full_name},\nTài khoản {member} đã được xác thực.\nBạn đã được cấp quyền để theo dõi tất cả thiết bị thuộc đơn vị {member.organization}
-				"""
+			contents = f"""(Đây là email trả lời tự động. Vui lòng không phản hồi lại email này)
+
+Kính gửi Quý khách {member.full_name},
+
+Chúc mừng Quý khách đã tạo tài khoản thành công.
+
+Tài khoản {member} của Quý khách đã được phân quyền ở cấp độ: {cap_do}
+
+Xin chúc Qúy khách có một trải nghiệm hài lòng và thu được nhiều giá trị từ trang web FFVN Endo Care của chúng tôi.
+
+Trân trong,
+Thay mặt Trung Tâm Dịch vụ FUJIFILM Việt Nam
+			"""
 			try:
 				messages.success(request,(f'Xác nhận thành công. Đã gửi email xác nhận đến {member.email}'))
 				send_mail(
@@ -69,7 +84,7 @@ def update_member(request,member_id):
 					fail_silently=False,
 				)
 			except:
-				messages.error(request,('Không thể gửi email.<a href="https://accounts.google.com/DisplayUnlockCaptcha">DisplayUnlockCapcha</a>s'))
+				messages.error(request,(f'Không thể gửi email đến {member.email}.<a href="https://accounts.google.com/DisplayUnlockCaptcha">DisplayUnlockCapcha</a>s'))
 		return redirect('new-members')
 
 	return render(request,'whiteboard/form_update.html',{

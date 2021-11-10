@@ -157,13 +157,64 @@ def home(request):
 	parts = Part.objects.all()
 	rcodes = Rcode.objects.all()
 	rcount = rcodes.count()
-	nhan_hang=''
+	nhan_hang=0
+	kiem_tra=0
+	chuan_bi_bao_gia=0
+	cho_duyet_bh=0
+	cho_xac_nhan=0
+	chuan_bi_lk=0
+	cho_sua_chua=0
+	dang_sua_chua=0
+	dang_giao_hang=0
+	hoan_tat_giao_hang=0
+	tra_hang=0
+
 	# home and device section
 	try:
 		user_login = User.objects.get(username=request.user)
 		if user_login.is_ffvn:
-			# nhan_hang =Pending.objects.filter(Q(p_score=2) | Q(e_score=2))
 			pendings = Pending.objects.all().order_by('rma_id__customer')
+
+			# nhan_hang_p =pendings.filter(Q(p_score=0) | Q(rma_id__e_score=0)).count()
+			nhan_hang =pendings.filter(p_score=0,rma_id__e_score=0).count()
+			
+
+			kiem_tra_p = pendings.filter(p_score=1,rma_id__e_score__lt=1).count()
+			kiem_tra_e = pendings.filter(p_score__lt=1,rma_id__e_score=1).count()
+			kiem_ = pendings.filter(p_score=1,rma_id__e_score=1).count()
+			kiem_tra =kiem_tra_p + kiem_tra_e + kiem_
+
+			chuan_bi_bao_gia_p = pendings.filter(p_score=2,rma_id__e_score__lt=2).count()
+			chuan_bi_bao_gia_e = pendings.filter(p_score__lt=2,rma_id__e_score=2).count()
+			chuan_bi_bao_gia = pendings.filter(p_score=2,rma_id__e_score=2).count()
+			# chuan_bi_bao_gia =chuan_bi_bao_gia_e + chuan_bi_bao_gia_p + chuan_bi_bao_gia 
+
+
+			cho_duyet_bh =pendings.filter(Q(p_score=2.5) | Q(rma_id__e_score=2.5)).count()
+			
+
+			cho_xac_nhan =pendings.filter(Q(p_score=3) | Q(rma_id__e_score=3) | Q(p_score=9) | Q(rma_id__e_score=9)).count()
+			
+
+			chuan_bi_lk =pendings.filter(Q(p_score=4) | Q(rma_id__e_score=4)).count()
+			
+
+			cho_sua_chua =pendings.filter(Q(p_score=5) | Q(rma_id__e_score=5)).count()
+			
+
+			dang_sua_chua =pendings.filter(Q(p_score=6) | Q(rma_id__e_score=6)).count()
+			
+
+			dang_giao_hang =pendings.filter(Q(p_score=7) | Q(rma_id__e_score=7)).count()
+			
+
+			hoan_tat_giao_hang =pendings.filter(Q(p_score=8) | Q(rma_id__e_score=8)).count()
+			
+
+			tra_hang =pendings.filter(Q(p_score=10) | Q(rma_id__e_score=10)).count()
+			
+
+
 			
 		elif user_login.dealer != None:
 			pendings = Pending.objects.filter(dealer=user_login.dealer).order_by('rma_id__customer')
@@ -224,6 +275,16 @@ def home(request):
 	return render(request,'home/home.html',{
 			'pendings':pendings,
 			'nhan_hang':nhan_hang,
+			'kiem_tra':kiem_tra,
+			'chuan_bi_bao_gia':chuan_bi_bao_gia,
+			'cho_duyet_bh':cho_duyet_bh,
+			'cho_xac_nhan':cho_xac_nhan,
+			'chuan_bi_lk':chuan_bi_lk,
+			'cho_sua_chua':cho_sua_chua,
+			'dang_sua_chua':dang_sua_chua,
+			'dang_giao_hang':dang_giao_hang,
+			'hoan_tat_giao_hang':hoan_tat_giao_hang,
+			'tra_hang':tra_hang,
 			'user_login':user_login,
 			'nums':nums,
 			'counts':counts,
