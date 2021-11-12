@@ -19,6 +19,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*.tiemnhago.com',
             '*.herokuapp.com',
+            'localhost',
 ]
 
 
