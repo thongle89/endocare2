@@ -86,6 +86,7 @@ def comments(request,rma_id):
 
 def update_pending(request,rma_id):
 	pending = Pending.objects.get(rma_id=rma_id)
+	parts = Part.objects.filter(rma=rma_id)
 	form = PendingForm(request.POST or None,instance=pending)
 	# instance: lấy mẫu cũ\
 	rma = pending.rma_id
@@ -100,6 +101,7 @@ def update_pending(request,rma_id):
 	return render(request,'home/update_pending.html',{
 		'pending':pending,
 		'form':form,
+		'parts':parts,
 		})
 
 
@@ -148,6 +150,16 @@ def quick_search(request,rma,sn):
 	# 			})
 
 
+def count_pending(pendings,count_score):
+	count_p=0
+	count_e=0
+	count_count=0
+	
+	count_p = pendings.filter(p_score=count_score,rma_id__e_score__lt=count_score).count()
+	count_e = pendings.filter(p_score__lt=count_score,rma_id__e_score=count_score).count()
+	count_count = pendings.filter(p_score=count_score,rma_id__e_score=count_score).count()
+	return count_count + count_p +count_e
+
 def home(request):
 	pendings=()
 	nums=''
@@ -162,6 +174,7 @@ def home(request):
 	chuan_bi_bao_gia=0
 	cho_duyet_bh=0
 	cho_xac_nhan=0
+	cho_xac_nhan_3th=0
 	chuan_bi_lk=0
 	cho_sua_chua=0
 	dang_sua_chua=0
@@ -175,43 +188,7 @@ def home(request):
 		if user_login.is_ffvn:
 			pendings = Pending.objects.all().order_by('rma_id__customer')
 
-			# nhan_hang_p =pendings.filter(Q(p_score=0) | Q(rma_id__e_score=0)).count()
-			nhan_hang =pendings.filter(p_score=0,rma_id__e_score=0).count()
 			
-
-			kiem_tra_p = pendings.filter(p_score=1,rma_id__e_score__lt=1).count()
-			kiem_tra_e = pendings.filter(p_score__lt=1,rma_id__e_score=1).count()
-			kiem_ = pendings.filter(p_score=1,rma_id__e_score=1).count()
-			kiem_tra =kiem_tra_p + kiem_tra_e + kiem_
-
-			chuan_bi_bao_gia_p = pendings.filter(p_score=2,rma_id__e_score__lt=2).count()
-			chuan_bi_bao_gia_e = pendings.filter(p_score__lt=2,rma_id__e_score=2).count()
-			chuan_bi_bao_gia = pendings.filter(p_score=2,rma_id__e_score=2).count()
-			# chuan_bi_bao_gia =chuan_bi_bao_gia_e + chuan_bi_bao_gia_p + chuan_bi_bao_gia 
-
-
-			cho_duyet_bh =pendings.filter(Q(p_score=2.5) | Q(rma_id__e_score=2.5)).count()
-			
-
-			cho_xac_nhan =pendings.filter(Q(p_score=3) | Q(rma_id__e_score=3) | Q(p_score=9) | Q(rma_id__e_score=9)).count()
-			
-
-			chuan_bi_lk =pendings.filter(Q(p_score=4) | Q(rma_id__e_score=4)).count()
-			
-
-			cho_sua_chua =pendings.filter(Q(p_score=5) | Q(rma_id__e_score=5)).count()
-			
-
-			dang_sua_chua =pendings.filter(Q(p_score=6) | Q(rma_id__e_score=6)).count()
-			
-
-			dang_giao_hang =pendings.filter(Q(p_score=7) | Q(rma_id__e_score=7)).count()
-			
-
-			hoan_tat_giao_hang =pendings.filter(Q(p_score=8) | Q(rma_id__e_score=8)).count()
-			
-
-			tra_hang =pendings.filter(Q(p_score=10) | Q(rma_id__e_score=10)).count()
 			
 
 
@@ -223,7 +200,20 @@ def home(request):
 			pendings = Pending.objects.filter(rma_id__customer=user_login.customer).order_by('-rma_id')
 
 		counts = pendings.count()
-
+		# nhan_hang_p =pendings.filter(Q(p_score=0) | Q(rma_id__e_score=0)).count()
+		nhan_hang =count_pending(pendings,0)
+		kiem_tra = count_pending(pendings,1)
+		
+		chuan_bi_bao_gia = count_pending(pendings,2)
+		# cho_duyet_bh = count_pending(pendings,)
+		cho_xac_nhan = count_pending(pendings,3)
+		chuan_bi_lk = count_pending(pendings,4)
+		cho_sua_chua =count_pending(pendings,5)
+		dang_sua_chua = count_pending(pendings,6)
+		dang_giao_hang = count_pending(pendings,7)
+		hoan_tat_giao_hang =count_pending(pendings,8)
+		cho_xac_nhan_3th = count_pending(pendings,9)
+		tra_hang =count_pending(pendings,10)
 		# set up pagination
 		p = Paginator(pendings,10) #3 items /page
 		page = request.GET.get('page')
@@ -279,6 +269,7 @@ def home(request):
 			'chuan_bi_bao_gia':chuan_bi_bao_gia,
 			'cho_duyet_bh':cho_duyet_bh,
 			'cho_xac_nhan':cho_xac_nhan,
+			'cho_xac_nhan_3th':cho_xac_nhan_3th,
 			'chuan_bi_lk':chuan_bi_lk,
 			'cho_sua_chua':cho_sua_chua,
 			'dang_sua_chua':dang_sua_chua,

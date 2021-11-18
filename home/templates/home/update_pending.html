@@ -32,6 +32,11 @@
 				<li>Status: {{ pending.rma_id.repair_status }}</li>
 				<li>e_score: {{ pending.rma_id.e_score }}</li>
 				<br>
+				<h5>Part list: {{ pending.rma_id }}</h5>
+				{% for part in parts %}
+					<li>{{part.part_no}} --- {{part.part_description}} --- {{part.vie_name}}</li>
+
+				{% endfor %}
 
 			<form action ="" method=POST>
 				{% csrf_token %}

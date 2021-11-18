@@ -12,6 +12,7 @@ urlpatterns = [
     path('update_member/<member_id>',views.update_member,name='update-member'),
     path('update_event/<event_id>',views.update_event,name='update-event'),
     path('add_event/',views.add_event,name='add-event'),
+    path('tong_hop/',views.tong_hop,name='tong-hop'),
     
 
 

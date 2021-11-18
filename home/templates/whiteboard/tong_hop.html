@@ -1,0 +1,253 @@
+{% extends 'home/base.html'%}
+{% load static %}
+
+{% block content %}
+	<section class="inner-page">
+      <div class="container">
+				{% if user.is_staff %}
+				<br>
+					<nav>
+					  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+					    <button class="nav-link active" id="nav-members-tab" data-bs-toggle="tab" data-bs-target="#nav-members" type="button" role="tab" aria-controls="nav-members" aria-selected="true">Thành viên Mới</button>
+					    <button class="nav-link" id="nav-events-tab" data-bs-toggle="tab" data-bs-target="#nav-events" type="button" role="tab" aria-controls="nav-events" aria-selected="false">Sự Kiện</button>
+					    <button class="nav-link" id="nav-feedbacks-tab" data-bs-toggle="tab" data-bs-target="#nav-feedbacks" type="button" role="tab" aria-controls="nav-feedbacks" aria-selected="false">Phản Hồi</button>
+					    <button class="nav-link" id="nav-confirm-tab" data-bs-toggle="tab" data-bs-target="#nav-confirm" type="button" role="tab" aria-controls="nav-confirm" aria-selected="false">Chờ xác nhận</button>
+					    <button class="nav-link" id="nav-return-tab" data-bs-toggle="tab" data-bs-target="#nav-return" type="button" role="tab" aria-controls="nav-return" aria-selected="false">Trả dây</button>
+					  </div>
+					</nav>
+					<div class="tab-content" id="nav-tabContent">
+					  <div class="tab-pane fade show active" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab"> <!-- id and data-bs-target -->
+					  	<br>
+							<h3>Thành viên chờ xác nhận</h3>
+							<table class="table table-striped table-hover table-bordered">
+				              <thead>
+				                <tr>
+				                  <th scope="col">username</th>
+				                  <th scope="col">Họ tên</th>
+				                  <th scope="col">Điện thoại</th>
+				                  <th scope="col">Đơn vị</th>
+				                  <th scope="col">Ngày Tham gia</th>
+				                  
+				                  <th scope="col">Xác nhận</th>
+												</tr>
+				              </thead>
+				              <tbody>
+				                {% for member in unverified %}
+				                	{% if member.is_ffvn %}
+
+													{% else %}
+														{% if member.dealer == None and member.customer == None %}
+															{% if member.username == 'robocon2021' %}
+
+															{% else %}
+					                  		<tr>
+							                    <td><a href="">{{ member.username }}</a></td>
+							                    <td>{{ member.full_name }}</a></td>
+							                    <td>{{ member.phone }}</a></td>
+							                    <td>{{ member.organization }}</a></td>
+							                    <td>{{ member.date_joined|date:'d/m/Y H:i' }}</a></td>
+							                    <td><a href="{% url 'update-member' member.id %}" class="btn btn-outline-primary">Xác nhận</a>
+							                    	<!-- <button type="button" class="btn btn-danger">Xóa</button> -->
+							                    </td>
+								            		</tr>
+								            	{% endif %}
+							            	{% endif %}
+				                  	{% endif %}
+								{% endfor %}
+				              </tbody>
+							</table>
+						</div>
+
+					  <div class="tab-pane fade" id="nav-events" role="tabpanel" aria-labelledby="nav-profile-tab">
+					  	<br>
+						<a href="{% url 'add-event' %}" class="btn btn-success">+ Tạo mới</a>
+						<br><br>
+							<h3>Lịch bảo trì sắp tới</h3>
+							<table class="table table-striped table-hover table-bordered">
+			          <thead>
+			            <tr>
+			              <th scope="col">Sự kiện</th>
+			              <th scope="col">Thời gian</th>
+			              <th scope="col">Địa điểm</th>
+			              <th scope="col">KS thực hiện</th>
+			              <th scope="col">Nội dung</th>
+			              <th scope="col">Tình trạng</th>
+			            </tr>
+			          </thead>
+			          {% for event in pm_soon %}
+			      		<tbody>
+			            <tr>
+			              <td>{{ event.name }}</td>
+			              <td>{{ event.event_date|date:'d/m/Y' }}</td>
+			              {% if event.venue.web_name %}
+			              	<td>{{event.venue.web_name}}</a></td>
+			              {% else %}
+			              	<td>{{event.venue}}</a></td>
+			              {% endif %}
+			              <td>{{ event.manager.full_name }}</td>
+			              <td>{{ event.description }}</td>
+			              <td><a href="{% url 'update-event' event.id %}" class="btn btn-primary">Chỉnh sửa</a>
+			              	<a href="" class="btn btn-danger">Xóa</a>
+			              </td>
+			            </tr>
+			          </tbody>
+			          {% endfor %}
+						  </table>
+
+							<h3>Sự kiện sắp diễn ra</h3>
+							<table class="table table-striped table-hover table-bordered">
+			          <thead>
+			            <tr>
+			              <th scope="col">Sự kiện</th>
+			              <th scope="col">Thời gian</th>
+			              <th scope="col">Địa điểm</th>
+			              <th scope="col">KS thực hiện</th>
+			              <th scope="col">Nội dung</th>
+			              <th scope="col">Tình trạng</th>
+			            </tr>
+			          </thead>
+			          {% for event in training_soon %}
+			      		<tbody>
+				            <tr>
+				              <td>{{ event.name }}</td>
+				              <td>{{ event.event_date|date:'d/m/Y' }}</td>
+				              {% if event.venue.web_name %}
+				              	<td>{{event.venue.web_name}}</a></td>
+				              {% else %}
+				              	<td>{{event.venue}}</a></td>
+				              {% endif %}
+				              <td>{{ event.manager.full_name }}</td>
+				              <td>{{ event.description }}</td>
+				              <td><a href="{% url 'update-event' event.id %}" class="btn btn-primary">Chỉnh sửa</a>
+				              	<a href="" class="btn btn-danger">Xóa</a>
+				              </td>
+				            </tr>
+				        </tbody>
+			          {% endfor %}
+						  </table>
+
+						  <h3>Đã diễn ra</h3>
+							<table class="table table-striped table-hover table-bordered">
+			          <thead>
+			            <tr>
+			              <th scope="col">Sự kiện</th>
+			              <th scope="col">Thời gian</th>
+			              <th scope="col">Địa điểm</th>
+			              <th scope="col">KS thực hiện</th>
+			              <th scope="col">Nội dung</th>
+			              <th scope="col">Tình trạng</th>
+			            </tr>
+			          </thead>
+			          {% for event in event_pass %}
+			      		<tbody>
+			            <tr>
+			              <td>{{ event.name }}</td>
+			              <td>{{ event.event_date|date:'d/m/Y' }}</td>
+			              {% if event.venue.web_name %}
+			              	<td>{{event.venue.web_name}}</a></td>
+			              {% else %}
+			              	<td>{{event.venue}}</a></td>
+			              {% endif %}
+			              <td>{{ event.manager.full_name }}</td>
+			              <td>{{ event.description }}</td>
+			              <td><a href="{% url 'update-event' event.id %}" class="btn btn-primary">Chỉnh sửa</a>
+			              	<a href="" class="btn btn-danger">Xóa</a>
+			              </td>
+			            </tr>
+			          </tbody>
+			          {% endfor %}
+						  </table>
+					  </div>
+					  
+					  <div class="tab-pane fade" id="nav-feedbacks" role="tabpanel" aria-labelledby="nav-contact-tab">
+					  	Phản Hồi
+						</div>
+
+						<div class="tab-pane fade" id="nav-confirm" role="tabpanel" aria-labelledby="nav-contact-tab">
+						<br>
+					  	chờ xác nhận (quá 3 tháng)
+					  	<table class="table table-striped table-hover table-bordered">
+              
+				              <thead>
+				                <tr>
+				                  <th scope="col">Khách Hàng</th>
+				                  <th scope="col">Model</th>
+				                  <th scope="col">Serial</th>
+				                  <th scope="col">Ngày Nhận</th>
+				                  <th scope="col">Tình trạng</th>
+					            </tr>
+				              </thead>
+				              <tbody>
+				                {% for pending in confirm_over3months %}
+				                  
+				                  <tr>
+				                    
+				                    <td>{{ pending.rma_id.customer.web_name }}</td>
+				                    <td>{{ pending.rma_id.model_d }}</td>
+				                    <td><a href="{% url 'quick-search' pending.rma_id pending.rma_id.sn %}">{{ pending.rma_id.sn }}</a></td>
+				                    <td>{{ pending.rma_id.receive_date|date:'d/m/Y' }}</td>
+				                    {% if pending.p_score >= pending.rma_id.e_score %}
+				                      <td>{{ pending.rma_id.repair_status }}</td>
+				                    {% else %}
+				                      <td>{{ pending.p_status}}</td>
+				                    {% endif %}
+				                    
+				                  
+				                  </tr>
+				                  
+
+				                {% endfor %}
+				              </tbody>
+
+				            </table>
+				         <br><br>
+				         <h5>Chờ xác nhận</h5>
+				         
+					  	<table class="table table-striped table-hover table-bordered">
+              
+				              <thead>
+				                <tr>
+				                  <th scope="col">Khách Hàng</th>
+				                  <th scope="col">Model</th>
+				                  <th scope="col">Serial</th>
+				                  <th scope="col">Ngày Nhận</th>
+				                  <th scope="col">Tình trạng</th>
+					            </tr>
+				              </thead>
+				              <tbody>
+				                {% for pending in w_confirm %}
+				                  
+				                  <tr>
+				                    
+				                    <td>{{ pending.rma_id.customer.web_name }}</td>
+				                    <td>{{ pending.rma_id.model_d }}</td>
+				                    <td><a href="{% url 'quick-search' pending.rma_id pending.rma_id.sn %}">{{ pending.rma_id.sn }}</a></td>
+				                    <td>{{ pending.rma_id.receive_date|date:'d/m/Y' }}</td>
+				                    {% if pending.p_score >= pending.rma_id.e_score %}
+				                      <td>{{ pending.rma_id.repair_status }}</td>
+				                    {% else %}
+				                      <td>{{ pending.p_status}}</td>
+				                    {% endif %}
+				                    
+				                  
+				                  </tr>
+				                  
+
+				                {% endfor %}
+				              </tbody>
+
+				            </table>
+						</div>
+
+						<div class="tab-pane fade" id="nav-return" role="tabpanel" aria-labelledby="nav-contact-tab">
+					  	Trả dây
+						</div>
+					</div>
+				{% else %}
+					<h4>Bạn không có quyền truy cập vào trang này.</h4>
+				{% endif %}
+		</div>
+		
+	</section>
+
+{% endblock %}

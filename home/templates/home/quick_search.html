@@ -97,7 +97,7 @@
 
                   {% if pending.p_score == 9 %} <!-- Chờ xác nhận quá 3 tháng -->
                     {% if pending.rma_id.w_score == 0 %}
-                      <img src = "/static/fujifilm/icon/90.svg" alt="My Happy SVG"/>
+                      <img src = "/static/fujifilm/icon/30.svg" alt="My Happy SVG"/>
                     {% else %}<!-- đang giao hàng BH -->
                       <img src = "/static/fujifilm/icon/45.svg" alt="My Happy SVG"/>
                     {% endif %}
@@ -209,7 +209,11 @@
                   </tr>
                   <tr>
                     <td>Tình trạng thiết bị:</td>
-                    <td>Hư hỏng {{pending.rma_id.repair_size }}</td>
+                    {% if pending.rma_id.repair_size %}
+                      <td>Hư hỏng {{pending.rma_id.repair_size }}</td>
+                    {% else %}
+                      <td>Đang cập nhật</td>
+                    {% endif %}
                   </tr>
                   <tr>
                     <td>Bộ phận liên quan <br>và công việc thực hiện:</td>

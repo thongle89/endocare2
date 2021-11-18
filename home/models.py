@@ -54,19 +54,10 @@ class Exfm(models.Model):
 	issue_part = models.CharField('Issue',max_length=50,blank=True,null=True)
 	pic = models.CharField('PIC',max_length=30,blank=True,null=True)
 	repair_status = models.CharField('Status',max_length=30,blank=True,null=True)
-	e_score = models.IntegerField('e_score',blank=True,null=True)
+	e_score = models.FloatField('e_score',blank=True,null=True)
 	w_score = models.FloatField('w_score',blank=True,null=True)
 	
-	# dealer= models.ForeignKey(Dealer,blank=True,null=True,on_delete = models.SET_NULL)
-	# type_s = models.CharField('Type',max_length=20,blank=True,null=True)
-	# tr_date = models.DateField('Technical_Report',blank=True,null=True)
-	# part_list_date = models.DateField('Part_List',blank=True,null=True)
-	# quotation_date = models.DateField('Quotation',blank=True,null=True)
-	# repair_note = models.CharField('Note',max_length=100,blank=True,null=True)
-
-	# class Meta:
-	# 	db_table = "home_pending"
-
+	
 	def __str__(self):
 		return self.rma
 
@@ -81,7 +72,7 @@ class Pending(models.Model):
 	
 	repair_note = models.CharField('Note',max_length=100,blank=True,null=True)
 	p_status = models.CharField('Status',max_length=50,blank=True,null=True)
-	p_score = models.IntegerField('Score',blank=True,null=True)
+	p_score = models.FloatField('Score',blank=True,null=True)
 
 	superadmin = models.BooleanField('Super Admin',blank=True,null=True,default=False)
 

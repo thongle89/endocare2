@@ -7,9 +7,29 @@ from .forms import VerifyUserForm,EventForm
 from django.http import HttpResponseRedirect, HttpResponse
 User = get_user_model()
 from django.core.mail import send_mail
-
+from home.models import Pending
 
 # Create your views here.
+def tong_hop(request):
+	unverified = User.objects.all().order_by('-date_joined')
+	now=timezone.now()
+	training_soon = Event.objects.filter(type_e=2,event_date__gte=now)
+	pm_soon = Event.objects.filter(type_e=1,event_date__gte=now)
+	event_pass = Event.objects.filter(event_date__lte=now)
+	pendings = Pending.objects
+	confirm_over3months = Pending.objects.all().filter(p_score=9)
+	w_confirm = Pending.objects.all().filter(p_score=3)
+	return render(request,'whiteboard/tong_hop.html',{
+		'unverified':unverified,
+		'now':now,
+		'training_soon':training_soon,
+		'pm_soon':pm_soon,
+		'event_pass':event_pass,
+		'confirm_over3months':confirm_over3months,
+		'w_confirm':w_confirm,
+
+		})
+
 def events(request):
 	events = Event.objects.all()
 	now=timezone.now()
