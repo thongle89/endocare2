@@ -12,5 +12,5 @@ class CustomUser(AbstractUser):
 	is_ffvn = models.BooleanField(verbose_name=_("FFVN members"),default=False)
 	dealer = models.ForeignKey(Dealer,null=True,blank=True,on_delete = models.SET_NULL)
 	customer = models.ForeignKey(Customer,null=True,blank=True,on_delete = models.SET_NULL)
-	def __str__(self):
-		return self.full_name
+	# def __str__(self):
+	# 	return self.full_name
