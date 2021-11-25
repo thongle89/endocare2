@@ -59,44 +59,37 @@
               
               <li><a class="nav-link scrollto" href="#about">Giới thiệu</a></li>
               {% if user.is_authenticated %}
-              <li><a class="nav-link scrollto" href="#devices">Thiết bị</a></li>
+                <li><a class="nav-link scrollto" href="#devices">Thiết bị</a></li>
               {% endif %}
               <li><a class="nav-link scrollto " href="#quick-search">Kiểm tra nhanh</a></li>
               <li><a class="nav-link scrollto " href="#events">Sự kiện</a></li>
+              
+              <li><a class="nav-link scrollto" href="#pricing">Dịch Vụ Bảo Trì</a></li>
+              <li><a class="nav-link scrollto" href="#contact">Liên Hệ</a></li>
               {% if user.is_authenticated %}
               <li class="dropdown"><a href="#"><span>Hi, {{ user|capfirst }}</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
                   {% if user.is_staff %} <!-- FFVN -->
-                  <li><a href="{% url 'admin:index'%}">Admin</a></li>
-                  <li><a class="dropdown-item" href="{% url 'devices-xls' %}">Tải danh sách</a></li>
-                  <!-- <li><a href="{% url 'new-members'%}">Thành viên mới</a></li>
-                  
-                  <li><a class="dropdown-item" href="{% url 'feed-back' %}">Tổng hợp phản hồi</a></li>
-                  <li><a class="dropdown-item" href="{% url 'events' %}">Tổng hợp sự kiện</a></li> -->
-                  <li><a class="dropdown-item"href="{% url 'tong-hop' %}">Tổng hợp</a></li>
+                    <li><a href="{% url 'admin:index'%}">Admin</a></li>
+                    <li><a class="dropdown-item" href="{% url 'devices-xls' %}">Tải danh sách</a></li>
+                    
+                    <li><a class="dropdown-item"href="{% url 'tong-hop' %}">Tổng hợp</a></li>
                   {% endif %}
-                  {% if user.customer %}
+                  <!-- {% if user.customer %}
                     {% if user.customer.web_name %}
                       <li><a class="dropdown-item" href="{% url 'devices-xls' %}">Danh sách thiết bị<br>{{user.customer.web_name}}</a></li>
                     {% else %}
                       <li><a class="dropdown-item" href="{% url 'devices-xls' %}">Danh sách thiết bị<br>{{user.customer}}</a></li>
                     {% endif %}
-                  {% endif %}
-
-                  
+                  {% endif %} -->
                   <li><a href="{% url 'logout-user' %}">Đăng Xuất</a></li>
 
                 </ul>
               </li>
               {% else %}
-              <!-- <li class="dropdown"><a href="{% url 'login-user' %}"><span>Đăng Nhập</span> <i class="bi bi-chevron-down"></i></a>
-                
-              </li> -->
-              <li><a class="nav-link scrollto" href="{% url 'login-user' %}">Đăng Nhập</a></li>
-              <li><a class="nav-link scrollto" href="{% url 'register-user' %}">Đăng Ký</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'login-user' %}">Đăng Nhập</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'register-user' %}">Đăng Ký</a></li>
               {% endif %}
-              <li><a class="nav-link scrollto" href="#pricing">Dịch Vụ Bảo Trì</a></li>
-              <li><a class="nav-link scrollto" href="#contact">Liên Hệ</a></li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
           </nav><!-- .navbar -->

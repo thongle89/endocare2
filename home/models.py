@@ -62,13 +62,14 @@ class Exfm(models.Model):
 		return self.rma
 
 class Pending(models.Model):
-	rma_id = models.ForeignKey(Exfm,blank=True,null=True,on_delete = models.CASCADE)
+	rma_id = models.OneToOneField(Exfm,unique=True,on_delete = models.CASCADE)
 	dealer= models.ForeignKey(Dealer,blank=True,null=True,on_delete = models.SET_NULL)
 	type_s = models.CharField('Type',max_length=20,blank=True,null=True)
 	tr_date = models.DateField('Technical_Report',blank=True,null=True)
 	part_list_date = models.DateField('Part_List',blank=True,null=True)
 	quotation_date = models.DateField('Quotation',blank=True,null=True)
 	confirm_date = models.DateField('Confirmation Date',blank=True,null=True)
+	return_date = models.DateField('Return Date',blank=True,null=True)
 	
 	repair_note = models.CharField('Note',max_length=100,blank=True,null=True)
 	p_status = models.CharField('Status',max_length=50,blank=True,null=True)

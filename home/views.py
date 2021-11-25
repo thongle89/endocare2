@@ -131,23 +131,7 @@ def quick_search(request,rma,sn):
 
 			})
 
-	# if request.method=="POST":
-	# 	binh_luan = request.POST['binh_luan']
-	# 	user_login = User.objects.get(username=request.user)
-		
-	# 	form = CommentForm(request.POST)
-	# 	if form.is_valid():
-	# 		form.save()
-	# 		messages.success('Bình luận thành công')
-	# 		return render(request,'home/quick_search.html',{
-	# 			'pending':pending,
-	# 			'rma':rma,
-	# 			'sn':sn,
-	# 			'parts':parts,
-	# 			'rcodes':rcodes,
-	# 			'comments':comments,
-
-	# 			})
+	
 
 
 def count_pending(pendings,count_score):

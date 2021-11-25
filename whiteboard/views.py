@@ -19,6 +19,8 @@ def tong_hop(request):
 	pendings = Pending.objects
 	confirm_over3months = Pending.objects.all().filter(p_score=9)
 	w_confirm = Pending.objects.all().filter(p_score=3)
+	comments = Comment.objects.all().order_by('cmt_time')
+	
 	return render(request,'whiteboard/tong_hop.html',{
 		'unverified':unverified,
 		'now':now,
@@ -27,7 +29,7 @@ def tong_hop(request):
 		'event_pass':event_pass,
 		'confirm_over3months':confirm_over3months,
 		'w_confirm':w_confirm,
-
+		'comments':comments,
 		})
 
 def events(request):
@@ -42,6 +44,7 @@ def events(request):
 		'training_soon':training_soon,
 		'pm_soon':pm_soon,
 		'event_pass':event_pass,
+		
 		})
 
 def verify_comment(request,comment_id):
@@ -76,8 +79,10 @@ def update_member(request,member_id):
 		if member.is_ffvn: cap_do = "FFVN"
 		if member.dealer !='': cap_do = f"Đại lý-{member.dealer}"
 		if member.customer !='': cap_do = f"Đơn vị sử dụng-{member.customer}"
-		if member.customer.web_name !='': cap_do = f"Đơn vị sử dụng-{member.customer.web_name}"
-		
+		try:
+			if member.customer.web_name !='': cap_do = f"Đơn vị sử dụng-{member.customer.web_name}"
+		except:
+			pass
 		form.save()
 		v_change=[member.is_ffvn,member.dealer,member.customer]
 		if v_check != v_change:

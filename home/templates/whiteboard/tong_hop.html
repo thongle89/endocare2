@@ -159,12 +159,76 @@
 						  </table>
 					  </div>
 					  
-					  <div class="tab-pane fade" id="nav-feedbacks" role="tabpanel" aria-labelledby="nav-contact-tab">
-					  	Phản Hồi
-						</div>
+				  	<div class="tab-pane fade" id="nav-feedbacks" role="tabpanel" aria-labelledby="nav-contact-tab">
+					  	{% if user.is_staff %}
+							<h3>Danh sách chờ phản hồi</h3>
+							<table class="table table-striped table-hover table-bordered">
+				              <thead>
+				                <tr>
+				                  <th scope="col">RMA</th>
+				                  <th scope="col">Serial</th>
+				                  <th scope="col">User Name</th>
+				                  <th scope="col">Nội dung</th>
+				                  <th scope="col">Ngày Giờ</th>
+				                  
+				                  <th scope="col">Xác nhận</th>
+								</tr>
+				              </thead>
+				              <tbody>
+				                {% for comment in comments %}
+				                	{% if comment.is_verified %}
+													{% else %}
+				                  		<tr>
+						                    <td><a href="{% url 'quick-search' comment.rma_id comment.rma_id.sn %}">{{ comment.rma_id }}</a></td>
+						                    <td>{{ comment.rma_id.sn }}</a></td>
+						                    <td>{{ comment.username }}</a></td>
+						                    <td>{{ comment.cmt_text }}</a></td>
+						                    <td>{{ comment.cmt_time|date:'d/m/Y H:i' }}</a></td>
+						                    <td><a href="{% url 'verify-comment' comment.id %}" class="btn btn-primary">Xác nhận</a>
+						                    	<!-- <button type="button" class="btn btn-danger">Xóa</button> -->
+						                    </td>
+							            </tr>
+				                  	{% endif %}
+				                {% endfor %}
+				              </tbody>
+							</table>
+							<br>
+							<h3>Danh sách Đã phản hồi</h3>
+							<table class="table table-striped table-hover table-bordered">
+				              <thead>
+				                <tr>
+				                  <th scope="col">RMA</th>
+				                  <th scope="col">User Name</th>
+				                  <th scope="col">Nội dung</th>
+				                  <th scope="col">Ngày Giờ</th>
+				                  <th scope="col">Người xác nhận</th>
+				                  
+				                  <th scope="col">Ngày Xác nhận</th>
+								</tr>
+				              </thead>
+				              <tbody>
+				                {% for comment in comments %}
+				                	{% if comment.is_verified %}
+									
+				                  		<tr>
+						                    <td><a href="{% url 'quick-search' comment.rma_id comment.rma_id.sn %}">{{ comment.rma_id }}</a></td>
+						                    
+						                    <td>{{ comment.username }}</a></td>
+						                    <td>{{ comment.cmt_text }}</a></td>
+						                    <td>{{ comment.cmt_time|date:'d/m/Y H:i' }}</a></td>
+						                    <td>{{ comment.verifier }}</td>
+						                    <td>{{ comment.verify_time|date:'d/m/Y H:i' }}</a></td>
+						                    
+							            </tr>
+				                  	{% endif %}
+				                {% endfor %}
+				              </tbody>
+							</table>
+						{% endif %}
+					</div>
 
-						<div class="tab-pane fade" id="nav-confirm" role="tabpanel" aria-labelledby="nav-contact-tab">
-						<br>
+					<div class="tab-pane fade" id="nav-confirm" role="tabpanel" aria-labelledby="nav-contact-tab">
+					<br>
 					  	chờ xác nhận (quá 3 tháng)
 					  	<table class="table table-striped table-hover table-bordered">
               
