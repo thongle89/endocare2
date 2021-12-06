@@ -83,16 +83,16 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
-#         'USER': 'thongle89',
-#         'PASSWORD':'646281T.l',
-#         'HOST':'database-2.chfm58xk1yl4.ap-southeast-1.rds.amazonaws.com',
-#         'PORT':'5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'thongle89',
+        'PASSWORD':'646281T.l',
+        'HOST':'database-2.chfm58xk1yl4.ap-southeast-1.rds.amazonaws.com',
+        'PORT':'5432',
+    }
+}
 
 
 # Password validation
