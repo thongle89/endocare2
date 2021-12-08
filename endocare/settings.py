@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-import django_heroku
+# import django_heroku
 import dj_database_url
 from decouple import config
 
@@ -162,4 +162,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'noreply.endocare@gmail.com'
 EMAIL_HOST_PASSWORD = 'endoservice2021'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
