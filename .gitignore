@@ -90,3 +90,5 @@ db.sqlite3
 
 endocare/__pycache__/
 endocare/settings.py
+static/
+staticfiles/
