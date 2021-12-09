@@ -29,12 +29,7 @@
   <!-- Template Main CSS File -->
   <link href="{% static 'fujifilm/assets/css/style.css' %}" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: KnightOne - v4.3.0
-  * Template URL: https://bootstrapmade.com/knight-simple-one-page-bootstrap-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  
 </head>
 
 <body>
@@ -50,7 +45,7 @@
 
       <div class="row justify-content-center">
         <div class="col-xl-9 d-flex align-items-center justify-content-lg-between">
-          <!-- <h1 class="logo me-auto me-lg-0"><a href="{% url 'home' %}">FUJIFILM</a></h1> -->
+          
           <!-- Uncomment below if you prefer to use an image logo -->
            <a href="{% url 'home' %}" class="logo me-auto me-lg-0"><img src="{% static 'fujifilm/white_Slogan_with_red.png' %}" alt="" class="img-fluid"></a>
 
@@ -75,13 +70,7 @@
                     
                     <li><a class="dropdown-item"href="{% url 'tong-hop' %}">Tổng hợp</a></li>
                   {% endif %}
-                  <!-- {% if user.customer %}
-                    {% if user.customer.web_name %}
-                      <li><a class="dropdown-item" href="{% url 'devices-xls' %}">Danh sách thiết bị<br>{{user.customer.web_name}}</a></li>
-                    {% else %}
-                      <li><a class="dropdown-item" href="{% url 'devices-xls' %}">Danh sách thiết bị<br>{{user.customer}}</a></li>
-                    {% endif %}
-                  {% endif %} -->
+                  
                   <li><a href="{% url 'logout-user' %}">Đăng Xuất</a></li>
 
                 </ul>
