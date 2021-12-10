@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-import django_heroku
+# import django_heroku
 import dj_database_url
 from decouple import config
 
@@ -83,6 +83,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#      'default': {
+#          'ENGINE': 'django.db.backends.postgresql',
+#          'NAME': 'web_db',
+#          'USER': 'web_user',
+#          'PASSWORD':'nhakANDUkj81',
+#          'HOST':'localhost',
+#          'PORT':'5432',
+#      }
+#  }
+
 #
 # DATABASES = {
 #     'default': {
