@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Event
+from .models import Event,Media
 from django.contrib.auth import get_user_model
 from django import forms
 User = get_user_model()
@@ -49,5 +49,24 @@ class VerifyUserForm(ModelForm):
 			'is_ffvn':forms.CheckboxInput(),
 			'dealer':forms.Select(attrs={'class':'form-select','placeholder':'Nhà Phân Phối'}),
 			'customer':forms.Select(attrs={'class':'form-select','placeholder':'Khách Hàng'}),
+		}
+
+class MediaForm(ModelForm):
+	class Meta:
+		model = Media
+		fields = ('bao_tri_1','bao_tri_2','bao_tri_3','bao_tri_4','bao_tri_5')
+		labels={
+			'bao_tri_1':'Silver 1',
+			'bao_tri_2':'Silver 2',
+			'bao_tri_3':'Silver 3',
+			'bao_tri_4':'Gold',
+			'bao_tri_5':'Premium',
+		}
+		widgets ={
+			'bao_tri_1':forms.TextInput(attrs={'class':'form-control','placeholder':'Silver 1'}),
+			'bao_tri_2':forms.TextInput(attrs={'class':'form-control','placeholder':'Silver 2'}),
+			'bao_tri_3':forms.TextInput(attrs={'class':'form-control','placeholder':'Silver 3'}),
+			'bao_tri_4':forms.TextInput(attrs={'class':'form-control','placeholder':'Gold'}),
+			'bao_tri_5':forms.TextInput(attrs={'class':'form-control','placeholder':'Premium'}),
 		}
 

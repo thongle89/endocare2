@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event,Comment
+from .models import Event,Comment,Media
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 
@@ -37,3 +37,18 @@ class CommentAdmin(ImportExportModelAdmin):
 	ordering = ('-cmt_time',)
 
 admin.site.register(Comment,CommentAdmin)
+
+class MediaResource(resources.ModelResource):
+	class Meta:
+		model = Media
+		import_id_fields = ('id',)
+		exclude =('',)
+
+class MediaAdmin(ImportExportModelAdmin):
+	resource_class = MediaResource
+	# list_display = ('rma_id','username','cmt_time')
+	# list_filter = ('username',)
+	# search_fields = ['rma_id',]
+	# ordering = ('-cmt_time',)
+
+admin.site.register(Media,MediaAdmin)

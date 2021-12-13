@@ -12,7 +12,7 @@ from django.utils import timezone
 User = get_user_model()
 from django.db.models import Q
 
-from whiteboard.models import Event,Comment
+from whiteboard.models import Event,Comment,Media
 
 def devices_xls(request):
 	try:
@@ -166,6 +166,12 @@ def home(request):
 	hoan_tat_giao_hang=0
 	tra_hang=0
 
+	#Media import
+	try:
+		medias = Media.objects.all()[0]
+	except:
+		medias=[]
+
 	# home and device section
 	try:
 		user_login = User.objects.get(username=request.user)
@@ -231,6 +237,7 @@ def home(request):
 					'user_login':user_login,
 					'nums':nums,
 					'counts':counts,
+					'medias':medias,
 					})
 		except:
 			messages.error(request,('Thông tin chưa chính xác 2.<br> Vui lòng liên hệ <a href="https://zalo.me/84902343992" target="_blank" rel="noopener noreferrer">Trần Minh Sang</a> để cập nhật thông tin thiết bị.'))
@@ -240,7 +247,7 @@ def home(request):
 							'nums':nums,
 							'counts':counts,
 							'events':events,
-							
+							'medias':medias,
 							})	
 	# else:	
 
@@ -264,5 +271,6 @@ def home(request):
 			'nums':nums,
 			'counts':counts,
 			'events':events,
+			'medias':medias,
 			
 		})

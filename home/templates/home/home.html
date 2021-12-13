@@ -456,59 +456,59 @@
         </div>
 
         <div class="row">
-
-          <div class="col-lg-4 col-md-6">
-            <div class="box">
-              <h3>Silver</h3>
-              <!-- <h4><sup>$</sup>0<span> / month</span></h4> -->
-              <ul>
-                <li>Tư vấn hỗ trợ kỹ thuật từ xa</li>
-                <li>Gọi điện chăm sóc định kỳ</li>
-                <li>Kiếm thêm gì đó điền vào</li>
-                <li class="na">Hỗ trợ, đào tạo chăm sóc thiết bị</li>
-                <li class="na">Bảo trì, bảo dưỡng theo lịch</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Mua Ngay</a>
+          {% if medias %}
+            <div class="col-lg-4 col-md-6">
+              <div class="box">
+                <h3>Silver</h3>
+                <!-- <h4><sup>$</sup>0<span> / month</span></h4> -->
+                <ul>
+                  <li>{{ medias.bao_tri_1}}</li>
+                  <li>{{ medias.bao_tri_2}}</li>
+                  <li>{{ medias.bao_tri_3}}</li>
+                  <li class="na">{{ medias.bao_tri_4}}</li>
+                  <li class="na">{{ medias.bao_tri_5}}</li>
+                </ul>
+                <div class="btn-wrap">
+                  <a href="#" class="btn-buy">Liên Hệ</a>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="col-lg-4 col-md-6 mt-4 mt-md-0">
-            <div class="box recommended">
-              <span class="recommended-badge">Được đề nghị</span>
-              <h3>Gold</h3>
-              <!-- <h4>19<sup> .000.000 VNĐ</sup><span> / month</span></h4> -->
-              <ul>
-                <li>Tư vấn hỗ trợ kỹ thuật từ xa</li>
-                <li>Gọi điện chăm sóc định kỳ</li>
-                <li>ANH SANG PHỤ TRÁCH NỘI DUNG</li>
-                <li>Hỗ trợ, đào tạo chăm sóc thiết bị</li>
-                <li class="na">Bảo trì, bảo dưỡng theo lịch</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Liên Hệ</a>
+            <div class="col-lg-4 col-md-6 mt-4 mt-md-0">
+              <div class="box recommended">
+                <span class="recommended-badge">Được đề nghị</span>
+                <h3>Gold</h3>
+                <!-- <h4>19<sup> .000.000 VNĐ</sup><span> / month</span></h4> -->
+                <ul>
+                  <li>{{ medias.bao_tri_1}}</li>
+                  <li>{{ medias.bao_tri_2}}</li>
+                  <li>{{ medias.bao_tri_3}}</li>
+                  <li>{{ medias.bao_tri_4}}</li>
+                  <li class="na">{{ medias.bao_tri_5}}</li>
+                </ul>
+                <div class="btn-wrap">
+                  <a href="#" class="btn-buy">Liên Hệ</a>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
-            <div class="box">
-              <h3>Premium</h3>
-              <!-- <h4>29<sup> Triệu VNĐ</sup><span> / month</span></h4> -->
-              <ul>
-                <li>Tư vấn hỗ trợ kỹ thuật từ xa</li>
-                <li>Gọi điện chăm sóc định kỳ</li>
-                <li>Kiếm thêm gì đó điền vào</li>
-                <li>Hỗ trợ, đào tạo chăm sóc thiết bị</li>
-                <li>Bảo trì, bảo dưỡng theo lịch</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Liên Hệ</a>
+            <div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
+              <div class="box">
+                <h3>Premium</h3>
+                <!-- <h4>29<sup> Triệu VNĐ</sup><span> / month</span></h4> -->
+                <ul>
+                  <li>{{ medias.bao_tri_1}}</li>
+                  <li>{{ medias.bao_tri_2}}</li>
+                  <li>{{ medias.bao_tri_3}}</li>
+                  <li>{{ medias.bao_tri_4}}</li>
+                  <li>{{ medias.bao_tri_5}}</li>
+                </ul>
+                <div class="btn-wrap">
+                  <a href="#" class="btn-buy">Liên Hệ</a>
+                </div>
               </div>
             </div>
-          </div>
-
+          {% endif %}
         </div>
 
       </div>

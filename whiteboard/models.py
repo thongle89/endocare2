@@ -32,6 +32,13 @@ class Event(models.Model):
 
 	def __str__(self):
 		return self.name
+class Media(models.Model):
+	bao_tri_1 = models.CharField('Bảo trì 1',max_length=100)
+	bao_tri_2 = models.CharField('Bảo trì 2',max_length=100)
+	bao_tri_3 = models.CharField('Bảo trì 3',max_length=100)
+	bao_tri_4 = models.CharField('Bảo trì 4',max_length=100)
+	bao_tri_5 = models.CharField('Bảo trì 5',max_length=100)
+
 
 
 
