@@ -160,5 +160,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'noreply.noisoifujifilm@gmail.com'
 EMAIL_HOST_PASSWORD = 'endoserv!ce2021'
 
-# django_heroku.settings(locals())
+
 
