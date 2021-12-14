@@ -296,26 +296,28 @@
           {% endif %}
 
           <div class="section-title">
-          <h3>Lịch bảo trì</h3>
-            {% for event in events %}
-              {% if event.type_e == 1 %}
+            {% if events %}
+              <h3>Lịch bảo trì</h3>
+                {% for event in events %}
+                  {% if event.type_e == 1 %}
 
-                {% if user.is_ffvn %}
-                  {{ event.event_date|date:'d/m/Y H:i' }} - {{ event.venue }} - {{ event.description}} - KS Thực hiện: {{event.manager.full_name}}<br>
-                {% endif %}
+                    {% if user.is_ffvn %}
+                      {{ event.event_date|date:'d/m/Y H:i' }} - {{ event.venue }} - {{ event.description}} - KS Thực hiện: {{event.manager.full_name}}<br>
+                    {% endif %}
 
-                {% if user.customer == event.venue %}
-                  {{ event.event_date|date:'d/m/Y H:i' }} - {{ event.venue }} - {{ event.description}}<br>
-                {% endif  %}
+                    {% if user.customer == event.venue %}
+                      {{ event.event_date|date:'d/m/Y H:i' }} - {{ event.venue }} - {{ event.description}}<br>
+                    {% endif  %}
 
-              {% endif %}
+                  {% endif %}
 
 
-            {% endfor %}
+                {% endfor %}
+            {% endif %}
        
 
         
-      </div> 
+          </div> 
       <div id="bao-tri">
         
         
