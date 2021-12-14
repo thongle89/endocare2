@@ -13,7 +13,7 @@ def login_user(request):
         
         if user is not None:
             login(request, user)
-            messages.success(request,("Đăng nhập thành công.<br>Phiên đăng nhập có hiệu lực trong thời gian 60 phút. Quá thời gian này vui lòng đăng nhập lại."))
+            messages.success(request,("Đăng nhập thành công.<br>Phiên đăng nhập có hiệu lực trong thời gian 120 phút. Quá thời gian này vui lòng đăng nhập lại."))
             return redirect('home')
             
         else:
