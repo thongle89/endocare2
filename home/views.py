@@ -165,7 +165,7 @@ def home(request):
 	dang_giao_hang=0
 	hoan_tat_giao_hang=0
 	tra_hang=0
-
+	mes_loc = False
 	#Media import
 	try:
 		medias = Media.objects.all()[0]
@@ -211,14 +211,6 @@ def home(request):
 		nums = 'a' * pendings.paginator.num_pages
 	except:
 		pass
- 
-	# return render(request,'themes/trial.html',{
-	# 	'pendings':pendings,
-	# 	'user_login':user_login,
-	# 	'nums':nums,
-	# 	'counts':counts,
-	# 	})
-
 
 	# quick search
 	if request.method=="POST":
@@ -240,15 +232,28 @@ def home(request):
 					'medias':medias,
 					})
 		except:
+			mes_loc = True
 			messages.error(request,('Thông tin chưa chính xác 2.<br> Vui lòng liên hệ <a href="https://zalo.me/84902343992" target="_blank" rel="noopener noreferrer">Trần Minh Sang</a> để cập nhật thông tin thiết bị.'))
-			return render(request,'home/home.html',{
-							'pendings':pendings,
+			# return render(request,'home/home.html',{
+			# 				'pendings':pendings,
+			# 				'user_login':user_login,
+			# 				'nums':nums,
+			# 				'counts':counts,
+			# 				'events':events,
+			# 				'medias':medias,
+			# 				'mes_loc':mes_loc,
+			# 				})
+			return render(request,'home/quick_search.html',{
+							# 'pending':pending,
+							'rma':rma,
+							'sn':sn,
+							'parts':parts,
+							'rcodes':rcodes,
+							'comments':comments,
 							'user_login':user_login,
-							'nums':nums,
-							'counts':counts,
-							'events':events,
-							'medias':medias,
-							})	
+							'mes_loc':mes_loc,
+							})
+			mes_loc = False
 	# else:	
 
 
