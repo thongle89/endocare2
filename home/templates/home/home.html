@@ -64,9 +64,9 @@
                 <ul>
                   {% if user.is_staff %} <!-- FFVN -->
                     <li><a href="{% url 'admin:index'%}">Admin</a></li>
-                    <li><a class="dropdown-item" href="{% url 'devices-xls' %}">Tải danh sách</a></li>
                     <li><a class="dropdown-item"href="{% url 'tong-hop' %}">Tổng hợp</a></li>
                   {% endif %}
+                    <li><a class="dropdown-item" href="{% url 'devices-xls' %}">Tải danh sách</a></li>
                     <li><a href="{% url 'logout-user' %}">Đăng Xuất</a></li>
                 </ul>
               </li>
