@@ -170,6 +170,7 @@ def home(request):
 	try:
 		medias = Media.objects.all()[0]
 	except:
+		
 		medias=[]
 
 	# home and device section
