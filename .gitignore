@@ -93,4 +93,4 @@ db.sqlite3
 endocare/settings.py
 # static/
 # staticfiles/
-*/migrations/
+whiteboard/migrations/
