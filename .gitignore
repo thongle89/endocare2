@@ -88,7 +88,9 @@ local_settings.py
 .env
 db.sqlite3
 
+# modify endocare
 */__pycache__/
 endocare/settings.py
 # static/
 # staticfiles/
+*/migrations/

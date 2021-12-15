@@ -13,7 +13,6 @@
 					    <button class="nav-link" id="nav-feedbacks-tab" data-bs-toggle="tab" data-bs-target="#nav-feedbacks" type="button" role="tab" aria-controls="nav-feedbacks" aria-selected="false">Phản Hồi</button>
 					    <button class="nav-link" id="nav-confirm-tab" data-bs-toggle="tab" data-bs-target="#nav-confirm" type="button" role="tab" aria-controls="nav-confirm" aria-selected="false">Chờ xác nhận</button>
 					    <button class="nav-link" id="nav-return-tab" data-bs-toggle="tab" data-bs-target="#nav-return" type="button" role="tab" aria-controls="nav-return" aria-selected="false">Trả dây</button>
-					    <button class="nav-link" id="nav-media-tab" data-bs-toggle="tab" data-bs-target="#nav-media" type="button" role="tab" aria-controls="nav-media" aria-selected="false">Media</button>
 					  </div>
 					</nav>
 					<div class="tab-content" id="nav-tabContent">
@@ -178,7 +177,7 @@
 				              <tbody>
 				                {% for comment in comments %}
 				                	{% if comment.is_verified %}
-													{% else %}
+									{% else %}
 				                  		<tr>
 						                    <td><a href="{% url 'quick-search' comment.rma_id comment.rma_id.sn %}">{{ comment.rma_id }}</a></td>
 						                    <td>{{ comment.rma_id.sn }}</a></td>
@@ -308,9 +307,7 @@
 					  	Trả dây
 						</div>
 
-						<div class="tab-pane fade" id="nav-media" role="tabpanel" aria-labelledby="nav-contact-tab">
-					  	Nội dung
-						</div>
+						
 					</div>
 				{% else %}
 					<h4>Bạn không có quyền truy cập vào trang này.</h4>
