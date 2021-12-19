@@ -52,11 +52,11 @@ admin.site.register(Dealer,DealerAdmin)
 class CustomerResource(resources.ModelResource):
 	class Meta:
 		model = Customer
-		import_id_fields = ('exfm_name',)
+		import_id_fields = ('exfm_code',)
 		exclude = ('id',)
 class CustomerAdmin(ImportExportModelAdmin):
 	resource_class = CustomerResource
-	list_display = ('exfm_name','web_name','dealer','city','head_of_endo','nurse')
+	list_display = ('exfm_code','exfm_name','web_name','dealer','city')
 	list_filter = ('city',)
 	search_fields =('web_name','dealer','city')
 
