@@ -107,8 +107,8 @@ def update_pending(request,rma_id):
 
 def quick_search(request,rma,sn):
 	
-	rma = rma.upper()
-	sn = sn.upper()
+	rma = rma.upper().strip()
+	sn = sn.upper().strip()
 	pending = Pending.objects.get(rma_id=rma)
 	comments = Comment.objects.all().order_by('cmt_time')
 	parts = Part.objects.all()
@@ -178,12 +178,6 @@ def home(request):
 		user_login = User.objects.get(username=request.user)
 		if user_login.is_ffvn:
 			pendings = Pending.objects.all().order_by('rma_id__customer')
-
-			
-			
-
-
-			
 		elif user_login.dealer != None:
 			pendings = Pending.objects.filter(dealer=user_login.dealer).order_by('rma_id__customer')
 
@@ -224,7 +218,7 @@ def home(request):
 			if sn==pending.rma_id.sn.upper():
 				return redirect(f'quick_search/{rma}/{sn}')
 			else:
-				messages.error(request,('Thông tin chưa chính xác 1.<br> Vui lòng liên hệ <a href="https://zalo.me/84902343992" target="_blank" rel="noopener noreferrer">Trần Minh Sang</a> để cập nhật thông tin thiết bị.'))
+				messages.error(request,('Thông tin chưa chính xác.<br> Vui lòng liên hệ <a href="https://zalo.me/84902343992" target="_blank" rel="noopener noreferrer">Trần Minh Sang</a> để cập nhật thông tin thiết bị.'))
 				return render(request,'home/home.html',{
 					'pendings':pendings,
 					'user_login':user_login,
@@ -234,24 +228,19 @@ def home(request):
 					})
 		except:
 			mes_loc = True
-			messages.error(request,('Thông tin chưa chính xác 2.<br> Vui lòng liên hệ <a href="https://zalo.me/84902343992" target="_blank" rel="noopener noreferrer">Trần Minh Sang</a> để cập nhật thông tin thiết bị.'))
-			# return render(request,'home/home.html',{
-			# 				'pendings':pendings,
-			# 				'user_login':user_login,
-			# 				'nums':nums,
-			# 				'counts':counts,
-			# 				'events':events,
-			# 				'medias':medias,
-			# 				'mes_loc':mes_loc,
-			# 				})
+			messages.error(request,('Thông tin chưa chính xác.<br> Vui lòng liên hệ <a href="https://zalo.me/84902343992" target="_blank" rel="noopener noreferrer">Trần Minh Sang</a> để cập nhật thông tin thiết bị.'))
+			comments = Comment.objects.all().order_by('cmt_time')
+			# user_login=''
+			rma=''
+			sn=''
 			return render(request,'home/quick_search.html',{
 							# 'pending':pending,
-							'rma':rma,
-							'sn':sn,
-							'parts':parts,
-							'rcodes':rcodes,
-							'comments':comments,
-							'user_login':user_login,
+							# 'rma':rma,
+							# 'sn':sn,
+							# 'parts':parts,
+							# 'rcodes':rcodes,
+							# 'comments':comments,
+							# 'user_login':user_login,
 							'mes_loc':mes_loc,
 							})
 			mes_loc = False

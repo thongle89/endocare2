@@ -3,22 +3,6 @@
 
 {% block content %}
 
-      
-    
-
-<!-- ======= Breadcrumbs ======= -->
-    <!-- <section id="breadcrumbs" class="breadcrumbs">
-      <div class="container">
-
-        <ol>
-          <li><a href="/themes/trial/#devices">Thiết bị</a></li>
-          <li>Inner Page</li>
-        </ol>
-        <h2>Inner Page</h2>
-
-      </div>
-    </section> --><!-- End Breadcrumbs -->
-
     <section class="inner-page">
       <div class="container">
         {% if mes_loc %}
@@ -304,10 +288,10 @@
                 {% endif %}
               </div>
             </div>
-          }
+          
 
-        </div>
-      {% endif %}
+      </div>
+      
       <div id="comments" class="container">
         <br>
         {% if user.is_authenticated %}
@@ -349,6 +333,8 @@
       </div>
       {% else %}
         Vui lòng <a href="{% url 'login-user' %}">Đăng Nhập</a> để phản hồi thông tin.
+      {% endif %}
+
       {% endif %}
     </section>
 
