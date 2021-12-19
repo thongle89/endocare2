@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#$#^6atgvy8rq$uytzs%g%cz!1j1c+q3pzeh622nw$2$+_sf^('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*.herokuapp.com',
             'localhost',
@@ -74,25 +74,25 @@ WSGI_APPLICATION = 'endocare.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+if DEBUG:
+    DATABASES = {
+           'default': {
+               'ENGINE': 'django.db.backends.sqlite3',
+               'NAME': BASE_DIR / 'db.sqlite3',
+           }
+        }
+else:
 
-DATABASES = {
-       'default': {
-           'ENGINE': 'django.db.backends.sqlite3',
-           'NAME': BASE_DIR / 'db.sqlite3',
-       }
+    DATABASES = {
+         'default': {
+             'ENGINE': 'django.db.backends.postgresql',
+             'NAME': 'web_db',
+             'USER': 'web_user',
+             'PASSWORD':'nhakANDUkj81',
+             'HOST':'localhost',
+             'PORT':'5432',
+         }
     }
-
-
-# DATABASES = {
-#      'default': {
-#          'ENGINE': 'django.db.backends.postgresql',
-#          'NAME': 'web_db',
-#          'USER': 'web_user',
-#          'PASSWORD':'nhakANDUkj81',
-#          'HOST':'localhost',
-#          'PORT':'5432',
-#      }
-# }
 
 
 
