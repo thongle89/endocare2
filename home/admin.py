@@ -28,10 +28,14 @@ class ExfmResource(resources.ModelResource):
 
 class ExfmAdmin(ImportExportModelAdmin):
 	resource_class = ExfmResource
-	list_display = ('rma','customer','model_d','sn','repair_status')
+	list_display = ('rma','get_exfm_name','model_d','sn','repair_status')
 	list_filter = ('model_d',)
 	search_fields = ['customer__exfm_name','model_d','sn']
 	ordering = ('rma','repair_status')
+	def get_exfm_name(self, obj):
+		return obj.customer.exfm_name
+	get_exfm_name.short_description = 'Units'
+	get_exfm_name.admin_order_field = 'Customer'
 
 admin.site.register(Exfm,ExfmAdmin)
 
