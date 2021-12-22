@@ -28,7 +28,7 @@ def devices_xls(request):
 							'last_repair_date')
 			columns=['Loại Máy','Kiểu Máy','Số Máy','Ngày Lắp Đặt','Ngày Hết Bảo Hành',
 			'Ngày sửa chữa gần nhất']
-			customer_name = user_login.customer
+			customer_name = user_login.customer.exfm_name
 
 	except:
 		pass
@@ -130,9 +130,6 @@ def quick_search(request,rma,sn):
 			'user_login':user_login,
 
 			})
-
-	
-
 
 def count_pending(pendings,count_score):
 	count_p=0

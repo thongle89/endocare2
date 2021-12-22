@@ -17,7 +17,7 @@ class Dealer(models.Model):
 
 class Customer(models.Model):
 	exfm_code = models.CharField('Exfm Code',max_length=100,primary_key=True)
-	exfm_name = models.CharField('Exfm Name',max_length=100)
+	exfm_name = models.CharField('Exfm Name',max_length=100,blank = True,null = True,)
 	web_name = models.CharField('Tên hiển thị',max_length=100,blank=True,null=True)
 	dealer = models.ForeignKey(Dealer,blank = True,null = True,on_delete = models.SET_NULL)
 	address = models.CharField('Địa chỉ',max_length=100,blank=True,null=True)

@@ -22,7 +22,7 @@ class CustomUserAdmin(ImportExportModelAdmin,UserAdmin):
 	resource_class = CustomUserResource
 	# model = CustomUser
 	add_form = CustomUserCreationForm
-	list_display = ('username','full_name','is_staff','organization','is_ffvn','dealer','get_exfm_name')
+	list_display = ('username','full_name','is_staff','organization','is_ffvn','dealer','customer')
 	
 	fieldsets = (
 		*UserAdmin.fieldsets,
@@ -36,9 +36,14 @@ class CustomUserAdmin(ImportExportModelAdmin,UserAdmin):
 		)
 	)
 	def get_exfm_name(self, obj):
-		return obj.customer.exfm_name
+		if obj.customer.exfm_name:
+			return obj.customer.exfm_name
+		else:
+			return '---'
+	
 	get_exfm_name.short_description = 'Units'
 	get_exfm_name.admin_order_field = 'Exfm Name'
+	get_exfm_name.empty_value_display = '???'
 
 admin.site.register(CustomUser,CustomUserAdmin)
 
