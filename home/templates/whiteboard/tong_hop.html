@@ -280,10 +280,8 @@
 				              </thead>
 				              <tbody>
 				                {% for pending in w_confirm %}
-				                  
-				                  <tr>
-				                    
-				                    <td>{{ pending.rma_id.customer.web_name }}</td>
+					              <tr>
+				                  	<td>{{ pending.rma_id.customer.web_name }}</td>
 				                    <td>{{ pending.rma_id.model_d }}</td>
 				                    <td><a href="{% url 'quick-search' pending.rma_id pending.rma_id.sn %}">{{ pending.rma_id.sn }}</a></td>
 				                    <td>{{ pending.rma_id.receive_date|date:'d/m/Y' }}</td>
@@ -292,11 +290,7 @@
 				                    {% else %}
 				                      <td>{{ pending.rma_id.repair_status }}</td>
 				                    {% endif %}
-				                    
-				                  
 				                  </tr>
-				                  
-
 				                {% endfor %}
 				              </tbody>
 
