@@ -50,13 +50,13 @@ class Exfm(models.Model):
 	start_time = models.DateTimeField('Start Time',blank=True,null=True)
 	end_time = models.DateTimeField('End Time',blank=True,null=True)
 	wr_report  = models.CharField('Warranty',max_length=50,blank=True,null=True)
-	
 	repair_size = models.CharField('MJ_mn',max_length=5,blank=True,null=True)
 	issue_part = models.CharField('Issue',max_length=50,blank=True,null=True)
 	pic = models.CharField('PIC',max_length=30,blank=True,null=True)
 	repair_status = models.CharField('Status',max_length=30,blank=True,null=True)
 	e_score = models.FloatField('e_score',blank=True,null=True)
 	w_score = models.FloatField('w_score',blank=True,null=True)
+	update_time = models.DateTimeField('Update Time',blank=True,null=True)
 	
 	
 	def __str__(self):
@@ -71,7 +71,6 @@ class Pending(models.Model):
 	quotation_date = models.DateField('Quotation',blank=True,null=True)
 	confirm_date = models.DateField('Confirmation Date',blank=True,null=True)
 	return_date = models.DateField('Return Date',blank=True,null=True)
-	
 	repair_note = models.CharField('Note',max_length=100,blank=True,null=True)
 	p_status = models.CharField('Status',max_length=50,blank=True,null=True)
 	p_score = models.FloatField('Score',blank=True,null=True)
@@ -85,6 +84,7 @@ class Part(models.Model):
 	rma = models.ForeignKey(Exfm,blank=True,null=True,on_delete = models.CASCADE)
 	part_no = models.CharField('Part No.',max_length = 15)
 	part_description = models.CharField('Part Name',max_length = 50)
+	part_new = models.CharField('Parts News',max_length= 20,blank=True,null=True)
 	vie_name = models.CharField('Tên Tiếng Việt', max_length =50,null = True,blank = True)
 
 	def __str__(self):

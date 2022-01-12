@@ -8,8 +8,70 @@ from django.http import HttpResponseRedirect, HttpResponse
 User = get_user_model()
 from django.core.mail import send_mail
 from home.models import Pending
+import datetime
+import xlwt
 
 # Create your views here.
+def quote_info(request):
+	try:
+		user_login = User.objects.get(username=request.user)
+		
+		if user_login.is_staff:
+			# devices= Device.objects.all().values_list('customer__web_name','type_s','model','serial',
+			# 	'installed_date','warranty_date', 
+			# 				'last_repair_date')
+			pendings = Pending.objects.all().values_list(
+				'rma_id',
+				'rma_id__customer__exfm_name',
+				'rma_id__model_d',
+				'rma_id__sn',
+				'dealer',
+				'part_list_date',
+				'quotation_date',
+				'confirm_date',
+				'return_date',
+				'repair_note',
+				'p_status',
+				'p_score'
+
+
+				)
+			columns=['RMA.','Khách Hàng','Model','Serial','Dealer','Part Select','Gửi báo giá','Xác nhận',
+			'Trả dây','Ghi chú','Tình trạng','Điểm']
+			# customer_name ='All'
+
+			response = HttpResponse(content_type='application/ms-excel')
+			datetime_str = str(datetime.date.today())
+			response['Content-Disposition']='attachment; filename=Download_Web_Pending_' + \
+						datetime_str + '.xls'
+			
+			wb = xlwt.Workbook(encoding = 'utf-8')
+			ws = wb.add_sheet(datetime_str)
+			row_num = 0
+			font_style = xlwt.XFStyle()
+			font_style.font.bold = True
+			for col_num in range(len(columns)):
+				ws.write(row_num,col_num,columns[col_num],font_style)
+			font_style = xlwt.XFStyle()
+			for pending in pendings:
+				row_num+=1
+				for col_num in range(len(pending)):
+						if str(pending[col_num]) != 'None':
+							ws.write(row_num,col_num,str(pending[col_num]),font_style)
+			wb.save(response)
+			return response
+
+
+
+	except:
+		messages.error(request,('Bạn không được cấp quyền để thực hiện tính năng này.'))
+		return redirect('home')
+		pass
+
+
+	
+	
+
 def tong_hop(request):
 	unverified = User.objects.all().order_by('-date_joined')
 	now=timezone.now()

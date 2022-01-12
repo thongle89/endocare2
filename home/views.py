@@ -94,7 +94,7 @@ def update_pending(request,rma_id):
 	if form.is_valid():
 		form.save()
 		
-		messages.success(request,('Phản hồi thành công.'))
+		messages.success(request,('Cập nhật thành công.'))
 		return redirect('quick-search',rma,sn)
 	# else:
 	# 	return redirect('quick-search',rma,sn)
@@ -104,7 +104,25 @@ def update_pending(request,rma_id):
 		'parts':parts,
 		})
 
-
+def parts_order(request,serial):
+	pending = Pending.objects.get(sn=serial.upper())
+	parts = Part.objects.filter(rma=pending)
+	# form = PartsOrderForm(request.POST or None,instance=pending)
+	# instance: lấy mẫu cũ\
+	rma = pending.rma_id
+	sn = pending.rma_id.sn
+	if form.is_valid():
+		form.save()
+		
+		messages.success(request,('Cập nhật thành công.'))
+		return redirect('parts-order',sn)
+	# else:
+	# 	return redirect('quick-search',rma,sn)
+	return render(request,'home/parts_order.html',{
+		'pending':pending,
+		# 'form':form,
+		'parts':parts,
+		})
 def quick_search(request,rma,sn):
 	
 	rma = rma.upper().strip()

@@ -212,13 +212,11 @@
 									
 				                  		<tr>
 						                    <td><a href="{% url 'quick-search' comment.rma_id comment.rma_id.sn %}">{{ comment.rma_id }}</a></td>
-						                    
 						                    <td>{{ comment.username }}</a></td>
 						                    <td>{{ comment.cmt_text }}</a></td>
 						                    <td>{{ comment.cmt_time|date:'d/m/Y H:i' }}</a></td>
 						                    <td>{{ comment.verifier }}</td>
 						                    <td>{{ comment.verify_time|date:'d/m/Y H:i' }}</a></td>
-						                    
 							            </tr>
 				                  	{% endif %}
 				                {% endfor %}
@@ -251,9 +249,9 @@
 				                    <td><a href="{% url 'quick-search' pending.rma_id pending.rma_id.sn %}">{{ pending.rma_id.sn }}</a></td>
 				                    <td>{{ pending.rma_id.receive_date|date:'d/m/Y' }}</td>
 				                    {% if pending.p_score >= pending.rma_id.e_score %}
-				                      <td>{{ pending.p_status}}</td>
+				                      <td>{{ pending.p_status}}  <a href="{% url 'update-pending' pending %}" class="btn btn-success">U</a></td>
 				                    {% else %}
-				                      <td>{{ pending.rma_id.repair_status }}</td>
+				                      <td>{{ pending.rma_id.repair_status }} <a href="{% url 'update-pending' pending %}" class="btn btn-success">U</a></td>
 				                    {% endif %}
 				                    
 				                  
@@ -286,9 +284,9 @@
 				                    <td><a href="{% url 'quick-search' pending.rma_id pending.rma_id.sn %}">{{ pending.rma_id.sn }}</a></td>
 				                    <td>{{ pending.rma_id.receive_date|date:'d/m/Y' }}</td>
 				                    {% if pending.p_score >= pending.rma_id.e_score %}
-				                      <td>{{ pending.p_status}}</td>
+				                      <td>{{ pending.p_status}}  <a href="{% url 'update-pending' pending %}" class="btn btn-success">U</a></td>
 				                    {% else %}
-				                      <td>{{ pending.rma_id.repair_status }}</td>
+				                      <td>{{ pending.rma_id.repair_status }}  <a href="{% url 'update-pending' pending %}" class="btn btn-success">U</a></td>
 				                    {% endif %}
 				                  </tr>
 				                {% endfor %}

@@ -17,7 +17,7 @@
 	<div class="container">
 		{% if user.is_ffvn %}
 			<h5>Thông tin thiết bị</h5>
-			<li>Khách hàng: <strong>{{ pending.rma_id.customer }}</strong></li>
+			<li>Khách hàng: <strong>{{ pending.rma_id.customer.web_name }}</strong></li>
       <li>Vị trí hiện tại: Trung tâm sửa chữa {{ pending.rma_id.location }}.</li>
       
       <li>Model: {{ pending.rma_id.model_d }}</li>
