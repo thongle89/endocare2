@@ -29,8 +29,11 @@
       <br>
       <h5>Tiến độ: </h5>
       <li>Ngày nhận thiết bị: {{ pending.rma_id.receive_date|date:'d/m/Y' }}</li>
-			<li>Status: {{ pending.rma_id.repair_status }}</li>
-			<li>e_score: {{ pending.rma_id.e_score }}</li>
+			{% if pending.p_score >= pending.rma_id.e_score %}
+        <li>Status: {{ pending.p_status}}</li>
+      {% else %}
+        <li>Status: {{ pending.rma_id.repair_status }}</li>
+      {% endif %}
 			<br>
 			<h5>Part list: {{ pending.rma_id }}</h5>
 			{% for part in parts %}
