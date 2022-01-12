@@ -256,9 +256,9 @@
                     <td><a href="{% url 'quick-search' pending.rma_id pending.rma_id.sn %}">{{ pending.rma_id.sn }}</a></td>
                     <td>{{ pending.rma_id.receive_date|date:'d/m/Y' }}</td>
                     {% if pending.p_score >= pending.rma_id.e_score %}
-                      <td>{{ pending.rma_id.repair_status }}</td>
-                    {% else %}
                       <td>{{ pending.p_status}}</td>
+                    {% else %}
+                      <td>{{ pending.rma_id.repair_status }}</td>
                     {% endif %}
                     
                   
