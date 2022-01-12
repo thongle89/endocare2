@@ -105,17 +105,18 @@ def update_pending(request,rma_id):
 		})
 
 def parts_order(request,serial):
-	pending = Pending.objects.get(sn=serial.upper())
-	parts = Part.objects.filter(rma=pending)
+	rma = Exfm.objects.get(sn=serial.upper())
+	pending = Pending.objects.get(rma_id=rma)
+	parts = Part.objects.filter(rma=rma)
 	# form = PartsOrderForm(request.POST or None,instance=pending)
 	# instance: lấy mẫu cũ\
-	rma = pending.rma_id
-	sn = pending.rma_id.sn
-	if form.is_valid():
-		form.save()
+	# rma = pending.rma_id
+	sn = serial # pending.rma_id.sn
+	# if form.is_valid():
+	# 	form.save()
 		
-		messages.success(request,('Cập nhật thành công.'))
-		return redirect('parts-order',sn)
+	# 	messages.success(request,('Cập nhật thành công.'))
+	# 	return redirect('parts-order',sn)
 	# else:
 	# 	return redirect('quick-search',rma,sn)
 	return render(request,'home/parts_order.html',{
