@@ -11,7 +11,7 @@ import datetime
 from django.utils import timezone
 User = get_user_model()
 from django.db.models import Q
-
+from django.db.models import Max
 from whiteboard.models import Event,Comment,Media
 
 def devices_xls(request):
@@ -169,6 +169,8 @@ def home(request):
 	parts = Part.objects.all()
 	rcodes = Rcode.objects.all()
 	rcount = rcodes.count()
+	ut = Exfm.objects.aggregate(Max('update_time'))['update_time__max']
+	update_time = ut.strftime("%d/%m/%Y, %H:%M:%S") 
 	nhan_hang=0
 	kiem_tra=0
 	chuan_bi_bao_gia=0
@@ -283,5 +285,6 @@ def home(request):
 			'counts':counts,
 			'events':events,
 			'medias':medias,
+			'update_time':update_time,
 			
 		})

@@ -1,21 +1,15 @@
 {% extends 'home/base.html' %}
 {% load static%}
 {% block content %}
-<!-- ======= Breadcrumbs ======= -->
-<!-- <section id="breadcrumbs" class="breadcrumbs">
-  <div class="container">
 
-    <ol>
-      <li><a href="/themes/trial/#devices">Thiết bị</a></li>
-      <li>Inner Page</li>
-    </ol>
-    <h2>Inner Page</h2>
-
-  </div>
-</section> --><!-- End Breadcrumbs -->
 <section class="inner-page">
 	<div class="container">
 		{% if user.is_ffvn %}
+		<form class="d-flex"method=POST action ="{% url 'parts-order' '2d103l174' %}">
+	    {% csrf_token %}
+	    <input class="form-control me-2" type="search" placeholder="Serial Number (4 digits at least)" aria-label="Search" name = "searched">
+	    <button class="btn btn-outline-success" type="submit">Search</button>
+	  </form>
 			<h5>Thông tin thiết bị</h5>
 			<li>Khách hàng: <strong>{{ pending.rma_id.customer.web_name }}</strong></li>
       <li>Vị trí hiện tại: Trung tâm sửa chữa {{ pending.rma_id.location }}.</li>
@@ -30,9 +24,9 @@
       <h5>Tiến độ: </h5>
       <li>Ngày nhận thiết bị: {{ pending.rma_id.receive_date|date:'d/m/Y' }}</li>
       {% if pending.p_score >= pending.rma_id.e_score %}
-        <li>Status: {{ pending.p_status}}</li>
+        <li>Tình Trạng: {{ pending.p_status}}</li>
       {% else %}
-        <li>Status: {{ pending.rma_id.repair_status }}</li>
+        <li>Tình Trạng: {{ pending.rma_id.repair_status }}</li>
       {% endif %}
 			
 			

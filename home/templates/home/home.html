@@ -218,7 +218,7 @@
             <h3>Trả hàng: {{ tra_hang }}</h3>
           {% endif %}
           
-          
+          Cập nhật lúc: {{ update_time }}
         </div>
         {% if user.is_authenticated %}
           
@@ -232,44 +232,36 @@
          
             
             <table class="table table-striped table-hover table-bordered">
-              
-              <thead>
+            <thead>
                 <tr>
-                  <th scope="col">Khách Hàng</th>
-                  <th scope="col">Model</th>
-                  <th scope="col">Serial</th>
+                  {% if user.is_ffvn %}
+                    <th scope="col">Khách Hàng</th>
+                  {% else %}
+                    <h3>Đơn vị sử dụng: {{ user.customer.web_name }} </h3>
+                  {% endif %}
+                  <th scope="col">Model/Serial</th>
                   <th scope="col">Ngày Nhận</th>
                   <th scope="col">Tình trạng</th>
-                  
-
-
-
                 </tr>
               </thead>
               <tbody>
                 {% for pending in pendings %}
-                  
                   <tr>
-                    
-                    <td>{{ pending.rma_id.customer.web_name }}</td>
-                    <td>{{ pending.rma_id.model_d }}</td>
-                    <td><a href="{% url 'quick-search' pending.rma_id pending.rma_id.sn %}">{{ pending.rma_id.sn }}</a></td>
+                    {% if user.is_ffvn %}
+                      <td>{{ pending.rma_id.customer.web_name }}</td>
+                    {% endif %}
+                    <td>{{ pending.rma_id.model_d }} <a href="{% url 'quick-search' pending.rma_id pending.rma_id.sn %}">{{ pending.rma_id.sn }}</a></td>
                     <td>{{ pending.rma_id.receive_date|date:'d/m/Y' }}</td>
                     {% if pending.p_score >= pending.rma_id.e_score %}
                       <td>{{ pending.p_status}}</td>
                     {% else %}
                       <td>{{ pending.rma_id.repair_status }}</td>
                     {% endif %}
-                    
-                  
                   </tr>
-                  
-
                 {% endfor %}
               </tbody>
-
             </table>
-                  {% endif %}
+          {% endif %}
             <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center">
               {% if pendings.has_previous %}
@@ -484,7 +476,7 @@
                   <li>{{ medias.bao_tri_1}}</li>
                   <li>{{ medias.bao_tri_2}}</li>
                   <li>{{ medias.bao_tri_3}}</li>
-                  <li>{{ medias.bao_tri_4}}</li>
+                  <li>{{ medias.bao_tri_4}} <sup>(*)</sup></li>
                   <li class="na">{{ medias.bao_tri_5}}</li>
                 </ul>
                 <div class="btn-wrap">
@@ -501,14 +493,15 @@
                   <li>{{ medias.bao_tri_1}}</li>
                   <li>{{ medias.bao_tri_2}}</li>
                   <li>{{ medias.bao_tri_3}}</li>
-                  <li>{{ medias.bao_tri_4}}</li>
-                  <li>{{ medias.bao_tri_5}}</li>
+                  <li>{{ medias.bao_tri_4}} <sup>(*)</sup></li>
+                  <li>{{ medias.bao_tri_5}} <sup>(*)</sup></li>
                 </ul>
                 <div class="btn-wrap">
                   <a href="#" class="btn-buy">Liên Hệ</a>
                 </div>
               </div>
             </div>
+            <p>(*) Phụ thuộc hợp đồng bảo trì</p>
           {% endif %}
         </div>
 

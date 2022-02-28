@@ -65,7 +65,7 @@
                     {% endif %}
                     
                     {% if pending.p_score == 4 %} <!-- Linh kiện đầy đủ -->
-                      {% if pending.rma_id.w_score == 0 %}
+                    <!--   {% if pending.rma_id.w_score == 0 %} -->
                         <img src = "/static/fujifilm/icon/40.svg" alt="My Happy SVG"/>
                       {% else %}<!-- Linh kiện đầy đủ (BH) -->
                         <img src = "/static/fujifilm/icon/45.svg" alt="My Happy SVG"/>
@@ -97,13 +97,36 @@
                     {% endif %}
 
                     {% if pending.p_score == 9 %} <!-- Chờ xác nhận quá 3 tháng -->
-                      {% if pending.rma_id.w_score == 0 %}
-                        <img src = "/static/fujifilm/icon/30.svg" alt="My Happy SVG"/>
-                      {% else %}<!-- đang giao hàng BH -->
-                        <img src = "/static/fujifilm/icon/45.svg" alt="My Happy SVG"/>
-                      {% endif %}
+                      
+                        
+                        {% if pending.rma_id.e_score == 2.5 %} <!-- chờ duyệt bảo hành -->
+                          <img src = "/static/fujifilm/icon/25.svg" alt="My Happy SVG"/>
+                        {% endif %}
+                        {% if pending.rma_id.e_score == 4 %} <!-- Linh kiện đầy đủ -->
+                          {% if pending.rma_id.w_score == 0 %}
+                            <img src = "/static/fujifilm/icon/40.svg" alt="My Happy SVG"/>
+                          {% else %}<!-- Linh kiện đầy đủ (BH) -->
+                            <img src = "/static/fujifilm/icon/45.svg" alt="My Happy SVG"/>
+                          {% endif %}
+                        {% endif %}
+                        
+                        {% if pending.rma_id.e_score == 5 %} <!-- chuẩn bị sửa chữa -->
+                          {% if pending.rma_id.w_score == 0 %}
+                            <img src = "/static/fujifilm/icon/50.svg" alt="My Happy SVG"/>
+                          {% else %}<!-- Chuẩn bị sửa chữa bảo hành -->
+                            <img src = "/static/fujifilm/icon/55.svg" alt="My Happy SVG"/>
+                          {% endif %}
+                        {% endif %}
+                        {% if pending.rma_id.e_score == 6 %} <!-- đang sửa chữa -->
+                          {% if pending.rma_id.w_score == 0 %}
+                            <img src = "/static/fujifilm/icon/60.svg" alt="My Happy SVG"/>
+                          {% else %}<!-- đang sửa chữa BH -->
+                            <img src = "/static/fujifilm/icon/65.svg" alt="My Happy SVG"/>
+                          {% endif %}
+                        {% endif %}  
                     {% endif %}
-                  {% else %}
+
+                  {% else %} <!-- e_score > p_score -->
                   
                     {%if pending.rma_id.e_score == 0 %} <!-- Create -->
                       <img src = "/static/fujifilm/icon/00.svg" alt="My Happy SVG"/>
