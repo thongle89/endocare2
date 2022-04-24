@@ -1,0 +1,658 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Fujifilm Vietnam</title>
+  
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'fujifilm/neverstop.png' %}" rel="icon">
+  <link href="{% static 'fujifilm/neverstop.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'fujifilm/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'fujifilm/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'fujifilm/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'fujifilm/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'fujifilm/assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'fujifilm/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'fujifilm/assets/css/style.css' %}" rel="stylesheet">
+
+  
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  {% if pendings.has_previous %}
+    <header id="header2" class="fixed-top ">
+  {% else %}
+    <header id="header" class="fixed-top ">
+  {% endif %}    
+    <div class="container-fluid">
+
+
+      <div class="row justify-content-center">
+        <div class="col-xl-9 d-flex align-items-center justify-content-lg-between">
+          
+          <!-- Uncomment below if you prefer to use an image logo -->
+           <a href="{% url 'home' %}" class="logo me-auto me-lg-0"><img src="{% static 'fujifilm/white_Slogan_with_red.png' %}" alt="" class="img-fluid"></a>
+
+          <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a class="nav-link scrollto" href="#about">Giới thiệu</a></li>
+              {% if user.is_authenticated %}
+                <li><a class="nav-link scrollto" href="#devices">Thiết bị</a></li>
+              {% endif %}
+              <li><a class="nav-link scrollto " href="#quick-search">Kiểm tra nhanh</a></li>
+              <li><a class="nav-link scrollto " href="#events">Sự kiện</a></li>
+              <li><a class="nav-link scrollto" href="#pricing">Dịch Vụ Bảo Trì</a></li>
+              <li><a class="nav-link scrollto" href="#contact">Liên Hệ</a></li>
+              {% if user.is_authenticated %}
+              <li class="dropdown"><a href="#"><span>Hi, {{ user|capfirst }}</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                  {% if user.is_staff %} <!-- FFVN -->
+                    <li><a href="{% url 'admin:index'%}">Admin</a></li>
+                    <li><a class="dropdown-item"href="{% url 'tong-hop' %}">Tổng hợp</a></li>
+                    <li><a class="dropdown-item" href="{% url 'quote-info' %}">Tải xác nhận</a></li>
+                  {% endif %}
+                    <li><a class="dropdown-item" href="{% url 'devices-xls' %}">Tải danh sách</a></li>
+
+                    <li><a href="{% url 'logout-user' %}">Đăng Xuất</a></li>
+                </ul>
+              </li>
+              {% else %}
+                <li><a class="nav-link scrollto" href="{% url 'login-user' %}">Đăng Nhập</a></li>
+                
+                <li><a class="nav-link scrollto" href="{% url 'register-user' %}">Đăng Ký</a></li>
+              {% endif %}
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav><!-- .navbar -->
+
+         <!--  <a href="{% url 'home' %}" class="get-started-btn scrollto">Kết nối chậm?</a> -->
+        </div>
+      </div>
+
+    </div>
+  </header><!-- End Header -->
+  {% if messages %}
+    <div id="messages">
+      <!--Message section-->
+         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </symbol>
+            <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+            </symbol>
+            <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </symbol>
+          </svg>
+          
+            {% for message in messages %}
+            <br><br><br>
+              {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                {{ message|safe }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+              <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                {{ message|safe }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              {% else %}
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                {{ message|safe }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              {% endif %}
+
+            {% endfor %}
+
+          
+        
+      
+    </div><!-- End Message-->
+  {% endif %}
+
+  {% if pendings.has_previous %}
+  
+
+  {% else %}
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex flex-column justify-content-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-8">
+          <h1>Chào mừng đến Trung tâm </h1>
+          <h1>Dịch vụ FUJIFILM Việt Nam</h1>
+          
+          <a href="https://www.youtube.com/watch?v=W8lBzS2C86U" class="glightbox play-btn mb-4"></a>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+    
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Về Chúng Tôi</h2>
+          <p>Công ty TNHH FUJIFILM Việt Nam là đại diện tại Việt Nam của tập đoàn Fujifilm Corporation – Nhật Bản được thành lập và hoạt động từ tháng 01 năm 1934, có trụ sở chính tại 26-30 Nishiazabu 2-Chome, Minato-Ku, Tokyo 106-8620, Nhật Bản, nhà sản xuất danh tiếng sản phẩm hệ thống nội soi Fujifilm.</p>
+          <br>
+          <p>Mong muốn đem lại trải nghiệm dịch vụ khách hàng thân thiện và tiện lợi cho quý Bệnh viện, phòng khám, cơ sở ý tế và quý Đại lý, chúng tôi xây dựng lên trang web <strong>“Nội Soi FUJIFILM”</strong> với nhiệm vụ cập nhật thường xuyên và kịp thời các thông tin về tình trạng thiết bị nội soi của quý Khách hàng từ khi được Trung Tâm Kỹ Thuật Nội soi Fujifilm Việt Nam tiếp nhận tới khi trả về tận tay Quý khách hàng.</p>
+          <br>
+          <p>Bằng sự ủng hộ và tin tưởng của Quý khách hàng, chúng tôi không ngừng đổi mới vì một thế giới khỏe mạnh hơn. Tập đoàn FUJIFILM chúng tôi tập trung vào công nghệ, sản phẩm, dịch vụ độc nhất nhằm giải quyết các vấn đề khác nhau liên quan đến y tế, góp phần nâng cao chất lượng y tế, tăng cường sức khỏe cộng đồng.</p>
+          <br>
+          <p>Với tư cách là một công ty chăm sóc sức khỏe toàn diện, chúng tôi không ngừng đổi mới vì một thế giới khỏe mạnh hơn.</p>
+        </div>
+
+      
+
+      </div>
+    </section><!-- End About Us Section -->
+    {% endif %}
+    
+
+    <!-- ======= Services Section ======= -->
+    <section id="devices" class="services">
+      
+      <div class="container">
+        
+        <div class="section-title">
+          <h2>Thiết bị</h2>
+          {% if nhan_hang %}
+            <h3>Nhận hàng: {{ nhan_hang }}</h3>
+          {% endif %}
+          {% if kiem_tra %}
+            <h3>Đang kiểm tra: {{ kiem_tra }}</h3>
+          {% endif %}
+          {% if chuan_bi_bao_gia %}
+            <h3>Chuẩn bị báo giá: {{ chuan_bi_bao_gia }}</h3>
+          {% endif %}
+          {% if cho_duyet_bh %}
+            <h3>Chờ duyệt Bảo Hành: {{ cho_duyet_bh }}</h3>
+          {% endif %}
+          {% if cho_xac_nhan %}
+            <h3>Chờ xác nhận: {{ cho_xac_nhan }}</h3>
+          {% endif %}
+          {% if cho_xac_nhan_3th %}
+            <h3>Chờ xác nhận (quá 3 tháng): {{ cho_xac_nhan_3th }}</h3>
+          {% endif %}
+          {% if chuan_bi_lk %}
+            <h3>Chuẩn bị linh kiện: {{ chuan_bi_lk }}</h3>
+          {% endif %}
+          {% if cho_sua_chua %}
+            <h3>Chờ sửa chữa: {{ cho_sua_chua }}</h3>
+          {% endif %}
+          {% if dang_sua_chua %}
+            <h3>Đang sửa chữa: {{ dang_sua_chua }}</h3>
+          {% endif %}
+          {% if dang_giao_hang %}
+            <h3>Hoàn tất sửa chữa: {{ dang_giao_hang }}</h3>
+          {% endif %}
+          {% if hoan_tat_giao_hang %}
+            <h3>Hoàn tất giao hàng: {{ hoan_tat_giao_hang }}</h3>
+          {% endif %}
+          {% if tra_hang %}
+            <h3>Trả hàng: {{ tra_hang }}</h3>
+          {% endif %}
+          
+          Cập nhật lúc: {{ update_time }}
+        </div>
+        {% if user.is_authenticated %}
+          
+          {% if counts == 0 %}
+            <h5>Hiện không có thiết bị nào của bạn đang ở trung tâm dịch vụ Fujifilm Vietnam</h5>
+            
+
+          {% else %}
+            <h5>Hiện có {{ counts }} thiết bị đang ở trung tâm dịch vụ FujiFilm Vietnam</h5>
+
+         
+            
+            <table class="table table-striped table-hover table-bordered">
+              
+              <thead>
+                <tr>
+                  <th scope="col">Khách Hàng</th>
+                  <th scope="col">Model</th>
+                  <th scope="col">Serial</th>
+                  <th scope="col">Ngày Nhận</th>
+                  <th scope="col">Tình trạng</th>
+                  
+
+
+
+                </tr>
+              </thead>
+              <tbody>
+                {% for pending in pendings %}
+                  
+                  <tr>
+                    
+                    <td>{{ pending.rma_id.customer.web_name }}</td>
+                    <td>{{ pending.rma_id.model_d }}</td>
+                    <td><a href="{% url 'quick-search' pending.rma_id pending.rma_id.sn %}">{{ pending.rma_id.sn }}</a></td>
+                    <td>{{ pending.rma_id.receive_date|date:'d/m/Y' }}</td>
+                    {% if pending.p_score >= pending.rma_id.e_score %}
+                      <td>{{ pending.p_status}}</td>
+                    {% else %}
+                      <td>{{ pending.rma_id.repair_status }}</td>
+                    {% endif %}
+                    
+                  
+                  </tr>
+                  
+
+                {% endfor %}
+              </tbody>
+
+            </table>
+                  {% endif %}
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center">
+              {% if pendings.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1"> &laquo First</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{pendings.previous_page_number }}">Previous</a></li>
+
+              {% endif %}
+
+              {% for i in nums %}
+                <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+
+              {% endfor %}
+
+              {% if pendings.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ pendings.next_page_number }}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{pendings.paginator.num_pages}}">Last &raquo </a></li>
+
+              {% endif %}
+              </ul>
+            </nav>
+          {% else %}
+          <br><br>
+            <h5>Vui lòng đăng nhập để theo dõi danh sách thiết bị của bạn.</h5><br>
+            <form action="{% url 'login-user'%}">
+              <button type="submit" class="btn btn-success" >Đăng Nhập</button>
+            </form>
+          {% endif %}
+
+          <div class="section-title">
+            {% if events %}
+              <h3>Lịch bảo trì</h3>
+                {% for event in events %}
+                  {% if event.type_e == 1 %}
+
+                    {% if user.is_ffvn %}
+                      {{ event.event_date|date:'d/m/Y H:i' }} - {{ event.venue }} - {{ event.description}} - KS Thực hiện: {{event.manager.full_name}}<br>
+                    {% endif %}
+
+                    {% if user.customer == event.venue %}
+                      {{ event.event_date|date:'d/m/Y H:i' }} - {{ event.venue }} - {{ event.description}}<br>
+                    {% endif  %}
+
+                  {% endif %}
+
+
+                {% endfor %}
+            {% endif %}
+       
+
+        
+          </div> 
+      <div id="bao-tri">
+        
+        
+      </div>
+    </section><!-- End device Section -->
+
+    <!-- ======= Quick Search Section ======= -->
+    <section id="quick-search" class="services">
+      <div class="container">
+        <div class="section-title">
+          <h2>Kiểm tra nhanh</h2>
+        </div>
+        <form  method ="POST" action="">
+          {% csrf_token %}
+          <div class="mb-3">
+            
+            <input class="form-control" type="search" placeholder="Số RMA# do Fujifilm Vietnam" aria-label="default input example" name ="rma">
+          </div>
+          <div class="mb-3">
+            <input class="form-control" type="search" placeholder="Số Serial thiết bị" aria-label="default input example" name="sn">
+          </div>
+          <button type="submit" class="btn btn-success">Kiểm tra</button>
+        </form>
+
+      </div>
+    </section><!-- End Quick Search -->
+
+    <section id="events" class="services">
+      <div class="container">
+        <div class="section-title">
+          <h2>Sự Kiện Nổi Bật</h2>
+        </div>
+        <div>
+          
+          {% for event in events %}
+          {% if event.type_e == 2 %}
+            <ul><h6><strong>Sự kiện: {{ event.name }}</strong></h6>
+             
+             <li>Ngày: {{ event.event_date|date:'d/m/Y H:i' }}</li>
+             <li>Địa điểm: {{ event.venue }}</li>
+             <li>Người tổ chức: {{ event.manager.full_name }}</li>
+             <a href="#">Đăng Ký Tham gia </a>
+            </ul>
+          {% endif %}
+          
+          
+          {% endfor %}
+          
+        </div>
+      </div>
+    </section>
+    <!-- ======= Cta Section ======= -->
+    <section id="cta" class="cta">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-9 text-center text-lg-start">
+            <h3>Khách Hàng của Chúng Tôi</h3>
+          it 
+          </div>
+          
+        </div>
+
+      </div>
+    
+
+    <!-- ======= Clients Section ======= -->
+    <section id="clients" class="clients">
+      <div class="container">
+
+        <div class="row no-gutters clients-wrap clearfix wow fadeInUp">
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="{% static 'fujifilm/clients/bv115.png' %}" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="{% static 'fujifilm/clients/91clinic.png' %}" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="{% static 'fujifilm/clients/sis_cantho.jpg' %}" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="{% static 'fujifilm/clients/yhue.png' %}" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="{% static 'fujifilm/clients/hoanmy.png' %}" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="{% static 'fujifilm/clients/bachmai.png' %}" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="{% static 'fujifilm/clients/hmu.png' %}" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="{% static 'fujifilm/clients/twhue.png' %}" class="img-fluid" alt="">
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Clients Section -->
+
+    
+<!-- ======= Pricing Section ======= -->
+    <section id="pricing" class="pricing">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Dịch vụ bảo trì</h2>
+          <!-- <p>Khanh chuẩn bị nội dung gói giới thiệu gói bảo trì</p> -->
+        </div>
+
+        <div class="row">
+          {% if medias %}
+            <div class="col-lg-4 col-md-6">
+              <div class="box">
+                <h3>Silver</h3>
+                <!-- <h4><sup>$</sup>0<span> / month</span></h4> -->
+                <ul>
+                  <li>{{ medias.bao_tri_1}}</li>
+                  <li>{{ medias.bao_tri_2}}</li>
+                  <li>{{ medias.bao_tri_3}}</li>
+                  <li class="na">{{ medias.bao_tri_4}}</li>
+                  <li class="na">{{ medias.bao_tri_5}}</li>
+                </ul>
+                <div class="btn-wrap">
+                  <a href="#" class="btn-buy">Liên Hệ</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mt-4 mt-md-0">
+              <div class="box recommended">
+                <span class="recommended-badge">Được đề nghị</span>
+                <h3>Gold</h3>
+                <!-- <h4>19<sup> .000.000 VNĐ</sup><span> / month</span></h4> -->
+                <ul>
+                  <li>{{ medias.bao_tri_1}}</li>
+                  <li>{{ medias.bao_tri_2}}</li>
+                  <li>{{ medias.bao_tri_3}}</li>
+                  <li>{{ medias.bao_tri_4}} <sup>(*)</sup></li>
+                  <li class="na">{{ medias.bao_tri_5}}</li>
+                </ul>
+                <div class="btn-wrap">
+                  <a href="#" class="btn-buy">Liên Hệ</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
+              <div class="box">
+                <h3>Premium</h3>
+                <!-- <h4>29<sup> Triệu VNĐ</sup><span> / month</span></h4> -->
+                <ul>
+                  <li>{{ medias.bao_tri_1}}</li>
+                  <li>{{ medias.bao_tri_2}}</li>
+                  <li>{{ medias.bao_tri_3}}</li>
+                  <li>{{ medias.bao_tri_4}} <sup>(*)</sup></li>
+                  <li>{{ medias.bao_tri_5}} <sup>(*)</sup></li>
+                </ul>
+                <div class="btn-wrap">
+                  <a href="#" class="btn-buy">Liên Hệ</a>
+                </div>
+              </div>
+            </div>
+            <p>(*) Phụ thuộc hợp đồng bảo trì</p>
+          {% endif %}
+        </div>
+
+      </div>
+    </section><!-- End Pricing Section -->
+    
+    
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="section-title">
+          <h2 style="color: #eee">Liên Hệ</h2>
+          
+        </div>
+      </div>
+
+      <!-- <div class="container"> -->
+        <div class="row gx-5">
+          
+          <div class="col">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7838.709818070182!2d106.703654!3d10.784106!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4955ae49a1%3A0xe81c36d0c6f8a17d!2zMzcgxJAuIFTDtG4gxJDhu6ljIFRo4bqvbmcsIELhur9uIE5naMOpLCBRdeG6rW4gMSwgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oLCBWaWV0bmFt!5e0!3m2!1sen!2sus!4v1632477027602!5m2!1sen!2sus" width="600" height="450" style="margin-left: 50px;border:0;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+          
+          <div class="col">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7448.855250780226!2d105.849442!3d21.015569000000003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab8c5715c9d7%3A0x9eb31d93a98c1dd3!2zMTI1IELDoCBUcmnhu4d1LCBOZ3V54buFbiBEdSwgSGFpIELDoCBUcsawbmcsIEjDoCBO4buZaSwgVmlldG5hbQ!5e0!3m2!1sen!2sus!4v1632477048341!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+          
+        </div>
+      <!-- </div> -->
+
+      <div class="container">
+
+        <div class="row mt-5">
+
+          <div class="col-lg-4">
+            <div class="info">
+              <div class="address">
+                <i class="ri-map-pin-line"></i>
+                <h4>Văn phòng:</h4>
+                <p><strong>HCM:</strong> Tầng 30, Tòa nhà Saigon Trade Center, 37 Tôn Đức Thắng, P. Bến Nghé, Q. 1</p><br>
+                <p><strong>Hà Nội:</strong> Tầng 9, Tòa Nhà V-Building, 125 Bà Triệu, Quận Hai Bà Trưng</p>
+              </div>
+
+              <div class="email">
+                <i class="ri-mail-line"></i>
+                <h4>Email:</h4>
+                <p><strong>Phía Bắc và Trung:</strong> thanhhuyen.nguyen@fujifilm.com</p>
+                <p><strong>Phía Nam:</strong> khanh.nguyenbao@fujifilm.com</p>
+              </div>
+
+              <div class="phone">
+                <i class="ri-phone-line"></i>
+                <h4>Điện Thoại:</h4>
+                <p><strong>Phía Bắc và Trung:</strong> Ms. Huyền (+84) 904926387 - <a href="https://zalo.me/84904926387" target="_blank" rel="noopener noreferrer">Zalo</a></p>
+                <p><strong>Phía Nam:</strong> Ms. Khanh (+84) 847078741 - <a href="https://zalo.me/84847078741" target="_blank" rel="noopener noreferrer">Zalo</a></p>
+                
+              </div>
+
+            </div>
+
+          </div> <!-- beside infor -->
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+            <div class="info">
+              <h4>FUJIFILM GROUP</h4>
+            
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 col-xs-6">
+                    <div class="col">
+                    
+                      <img src="{% static 'fujifilm/fujifilm_white.png' %}" class="img-fluid" alt="">
+
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3 col-md-4 col-xs-6">
+                    <div class="col">
+                    
+                      <img src="{% static 'fujifilm/fujifilm holding.png' %}" class="img-fluid" alt="">
+
+                    </div>
+                  </div>
+                  
+              </div>
+
+            </div>
+
+          </div>
+          
+
+          </div>
+
+
+          
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <h3>Fujifilm Việt Nam</h3>
+      <p>Value from Innovation</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/FujifilmHealthcareVN" class="twitter"><i class="bx bxl-facebook"></i></a>
+        <a href="#" class="facebook"><i class="bx bxl-messenger"></i></a>
+        <a href="#" class="instagram"><i class="bx bxl-twitter"></i></a>
+        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; Copyright <strong><span>2021</span></strong>. FujiFilm Service
+      </div>
+      <div class="credits">
+       
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <!-- <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a> -->
+  <a href="http://m.me/FujifilmHealthcareVN" class="back-to-top d-flex align-items-center justify-content-center"><i class="bx bxl-messenger"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'fujifilm/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'fujifilm/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'fujifilm/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'fujifilm/assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'fujifilm/assets/vendor/purecounter/purecounter.js' %}"></script>
+  <script src="{% static 'fujifilm/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'fujifilm/assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

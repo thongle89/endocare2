@@ -24,9 +24,14 @@
           <div class="card">
             <div class="card-header">
               {% if pending.p_score >= pending.rma_id.e_score %}
+
                 <strong>RMA No#: {{ pending }} - {{ pending.p_status}}</strong>
               {% else %}
-                <strong>RMA No#: {{ pending }} - {{ pending.rma_id.repair_status}}</strong>
+                {% if pending.rma_id.e_score == 9 %}
+                  <strong>RMA No#: {{ pending }} - {{ pending.p_status}}</strong>
+                {% else %}
+                  <strong>RMA No#: {{ pending }} - {{ pending.rma_id.repair_status}}</strong>
+                {% endif %}
               {% endif %}
             </div>
             <div class="card-body">
@@ -182,7 +187,31 @@
                         <img src = "/static/fujifilm/icon/85.svg" alt="My Happy SVG"/>
                       {% endif %}
                     {% endif %}
+
+                    {% if pending.rma_id_.escore == 9 %} <!-- completed table -->
+
+
+                    {% endif %}
+                      {% if pending.rma_id.w_score == 0 %}
+                        
+                        {% if pending.p_score == 2 %}
+                          <img src = "/static/fujifilm/icon/20.svg" alt="My Happy SVG"/>
+                        {% endif %}
+                        {% if pending.p_score == 4 %}
+                          <img src = "/static/fujifilm/icon/40.svg" alt="My Happy SVG"/>
+                        {% endif %}
+                        {% if pending.p_score == 9 %}
+                            <img src = "/static/fujifilm/icon/40.svg" alt="My Happy SVG"/>
+                        {% endif %}
+                        {% if pending.p_score == 10 %}
+                        {% endif %}
+                        
+                      {% else %}<!-- hoàn tất hàng BH -->
+                        <img src = "/static/fujifilm/icon/85.svg" alt="My Happy SVG"/>
+                      {% endif %}
+
                   {% endif %}
+
                   
 
                 </center>
