@@ -137,38 +137,38 @@ def quick_search(request,rma,sn):
 	except:
 		user_login=''
 	#try:
-		if sn==pending.rma_id.sn.upper():
+	if sn==pending.rma_id.sn.upper():
 
-			return render(request,'home/quick_search.html',{
-				'pending':pending,
-				'rma':rma,
-				'sn':sn,
-				'parts':parts,
-				'rcodes':rcodes,
-				'comments':comments,
-				'user_login':user_login,
+		return render(request,'home/quick_search.html',{
+			'pending':pending,
+			'rma':rma,
+			'sn':sn,
+			'parts':parts,
+			'rcodes':rcodes,
+			'comments':comments,
+			'user_login':user_login,
 
-				})
-	#except:
-		else:
-			# when cannot get right rma & serial
-			mes_loc = True
-			messages.error(request,(f'Không tìm thấy thông tin thiết bị {sn}.<br> Vui lòng liên hệ <a href="https://zalo.me/84902343992" target="_blank" rel="noopener noreferrer">Trần Minh Sang</a> để cập nhật thông tin thiết bị.'))
-			comments = Comment.objects.all().order_by('cmt_time')
-			# user_login=''
-			rma=''
-			sn=''
-			return render(request,'home/quick_search.html',{
-							# 'pending':pending,
-							# 'rma':rma,
-							# 'sn':sn,
-							# 'parts':parts,
-							# 'rcodes':rcodes,
-							# 'comments':comments,
-							# 'user_login':user_login,
-							'mes_loc':mes_loc,
-							})
-			mes_loc = False
+			})
+#except:
+	else:
+		# when cannot get right rma & serial
+		mes_loc = True
+		messages.error(request,(f'Không tìm thấy thông tin thiết bị {sn}.<br> Vui lòng liên hệ <a href="https://zalo.me/84902343992" target="_blank" rel="noopener noreferrer">Trần Minh Sang</a> để cập nhật thông tin thiết bị.'))
+		comments = Comment.objects.all().order_by('cmt_time')
+		# user_login=''
+		rma=''
+		sn=''
+		return render(request,'home/quick_search.html',{
+						# 'pending':pending,
+						# 'rma':rma,
+						# 'sn':sn,
+						# 'parts':parts,
+						# 'rcodes':rcodes,
+						# 'comments':comments,
+						# 'user_login':user_login,
+						'mes_loc':mes_loc,
+						})
+		mes_loc = False
 
 def count_pending(pendings,count_score):
 	count_p=0
