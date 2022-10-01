@@ -35,15 +35,19 @@
 			{% for part in parts %}
 				<li>{{part.part_no}} --- {{part.part_description}} --- {{part.vie_name}}</li>
 			{% endfor %}
+			<br>
+			<a href="{% url 'quick-search' pending.rma_id pending.rma_id.sn %}">Trở lại trang thông tin</a>
 		{% endif %}
 		{% if user.is_staff %}
 
 			<!--  -->
 		{% else %}
 			{% if user.is_ffvn %}
+				
 			{% else %}
 				<br>
 				<h3>Bạn không được cấp quyền để vào trang này.</h3>
+
 			{% endif %}
 		{% endif %}
 	</div> <!-- container -->

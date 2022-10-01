@@ -338,6 +338,9 @@
                 {% if user.is_staff %}
                   <a href="{% url 'update-pending' pending.rma_id %}" class="btn btn-primary">Update</a>
                 {% endif %}
+                {% if user.is_ffvn %}
+                  <a href="{% url 'parts-order' pending.rma_id.sn %}" class="btn btn-info">Parts Order</a>
+                {% endif %}
               </div>
             </div>
           
